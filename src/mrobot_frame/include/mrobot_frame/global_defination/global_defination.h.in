@@ -1,0 +1,9 @@
+#ifndef MROBOT_FRAME_GLOBAL_DEFINATION_H_IN_
+#define MROBOT_FRAME_GLOBAL_DEFINATION_H_IN_
+
+#include <string>
+
+namespace mrobot_frame {
+const std::string WORK_SPACE_PATH = "@WORK_SPACE_PATH@";
+}
+#endif

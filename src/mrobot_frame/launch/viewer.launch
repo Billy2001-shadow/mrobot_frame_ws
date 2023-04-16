@@ -1,0 +1,26 @@
+<launch>
+
+    <!-- bag的地址与名称 -->
+    <arg name="bag_filename" default="/home/chenw/ROS1/Bag_file/lesson5.bag"/>
+    <!-- <arg name="bag_filename" default="/media/alpaca/ubuntu18/data/intel.bag"/> -->
+
+    
+
+    <!-- 使用bag的时间戳 -->
+    <param name="use_sim_time" value="true" />
+
+    <!-- 启动节点 -->
+    <node name="mrobot_frame_data_pretreat_node" pkg="mrobot_frame" type="mrobot_frame_data_pretreat_node" output="screen" />
+    <node name="mrobot_frame_front_end_node" pkg="mrobot_frame" type="mrobot_frame_front_end_node" output="screen" />
+    <node name="mrobot_frame_back_end_node" pkg="mrobot_frame" type="mrobot_frame_back_end_node" output="screen" />
+    <node name="mrobot_frame_loop_closing_node" pkg="mrobot_frame" type="mrobot_frame_loop_closing_node" output="screen" />
+    <node name="mrobot_frame_viewer_node" pkg="mrobot_frame" type="mrobot_frame_viewer_node" output="screen" />
+    
+    <!-- launch rviz -->
+    <node name="rviz" pkg="rviz" type="rviz" required="false"
+        args="-d $(find mrobot_frame)/launch/test.rviz" />
+    <!-- play bagfile -->
+    <node name="playbag" pkg="rosbag" type="play" args="--clock $(arg bag_filename) -r 2" />
+    
+
+</launch>
