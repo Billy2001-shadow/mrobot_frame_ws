@@ -1,3 +1,6 @@
+*.pcd
+/build/
+/devel/
 # Prerequisites
 *.d
 

@@ -1,7 +1,7 @@
 <launch>
 
     <!-- bag的地址与名称 -->
-    <arg name="bag_filename" default="/home/chenw/ROS1/Bag_file/lesson5.bag"/>
+    <arg name="bag_filename" default="/home/ncu/chenw/bag_file/lesson5.bag"/>
     <!-- <arg name="bag_filename" default="/media/alpaca/ubuntu18/data/intel.bag"/> -->
 
     
