@@ -75,17 +75,21 @@ bool FrontEnd::InitFilter(std::string filter_user, std::shared_ptr<CloudFilterIn
     return true;
 }
 
+
+
 //得到一帧点云，就返回一个位姿
 bool FrontEnd::Update(const CloudData& cloud_data, Eigen::Matrix4f& cloud_pose) {
     current_frame_.cloud_data.time = cloud_data.time;
     std::vector<int> indices;
+    //std::cout << "滤波前：：：：：：：：：" << (*cloud_data.cloud_ptr).size() << std::endl;
     //将原始数据进行处理，过滤后的数据在原始数据中的下标保存在indices中
     pcl::removeNaNFromPointCloud(*cloud_data.cloud_ptr, *current_frame_.cloud_data.cloud_ptr, indices);
-
+    
     //滤波后保存
     CloudData::CLOUD_PTR filtered_cloud_ptr(new CloudData::CLOUD());
     frame_filter_ptr_->Filter(current_frame_.cloud_data.cloud_ptr, filtered_cloud_ptr);
 
+    
     //类的所有对象调用这个函数都可以使用这些局部静态变量
     //只有第一次才会进行这些初始化语句，不会反复初始化的
     static Eigen::Matrix4f step_pose = Eigen::Matrix4f::Identity();

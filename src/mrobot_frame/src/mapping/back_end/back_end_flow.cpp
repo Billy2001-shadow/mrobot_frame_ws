@@ -7,7 +7,7 @@
 
 namespace mrobot_frame {
 BackEndFlow::BackEndFlow(ros::NodeHandle& nh) {
-    cloud_sub_ptr_ = std::make_shared<CloudSubscriber2>(nh, "/pretreat_cloud", 100000); //
+    cloud_sub_ptr_ = std::make_shared<CloudSubscriber2>(nh, "/pretreat_cloud", 100000); 
     laser_odom_sub_ptr_ = std::make_shared<OdometrySubscriber>(nh, "/laser_odom_pose", 100000); //激光里程计位姿(构建节点和相邻边)
     loop_pose_sub_ptr_ = std::make_shared<LoopPoseSubscriber>(nh, "/loop_pose", 100000);//回环位姿(构建回环边)
     //发布
@@ -47,9 +47,9 @@ bool BackEndFlow::ForceOptimize() {
 }
 
 bool BackEndFlow::ReadData() {
-    cloud_sub_ptr_->ParseData(cloud_data_buff_);
-    laser_odom_sub_ptr_->ParseData(laser_odom_data_buff_);
-    loop_pose_sub_ptr_->ParseData(loop_pose_data_buff_);
+    cloud_sub_ptr_->ParseData(cloud_data_buff_);  //点云数据()
+    laser_odom_sub_ptr_->ParseData(laser_odom_data_buff_); //激光里程计数据(待优化的位姿)
+    loop_pose_sub_ptr_->ParseData(loop_pose_data_buff_); //回环数据
 
     return true;
 }

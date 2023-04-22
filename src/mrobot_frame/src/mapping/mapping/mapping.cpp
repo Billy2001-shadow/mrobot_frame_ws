@@ -65,12 +65,7 @@ bool Mapping::InitParam(const YAML::Node& config_node) {
         pMapW[i] = 0;
         pMapTSDF[i] = -1;
     }
-    // std::cout << "mapParams.height   " << mapParams.height << "   mapParams.width   " << mapParams.width << std::endl;
-    // std::cout << "mapParams.log_occ   " << mapParams.log_occ << "   mapParams.log_free   " << mapParams.log_free << std::endl;
-    // std::cout << "mapParams.log_max  " << mapParams.log_max << "   mapParams.log_min   "<< mapParams.log_min << std::endl;
-    // std::cout << "mapParams.offset_x  " << mapParams.offset_x << "   mapParams.offset_y   "<< mapParams.offset_y << std::endl;
-    // std::cout << "mapParams.origin_x  " << mapParams.origin_x << "   mapParams.origin_y   "<< mapParams.origin_y << std::endl;
-    // std::cout << "mapParams.resolution  " << mapParams.resolution  << std::endl;
+    return true;
 }
 
 void Mapping::OccupanyMapping(KeyFrame &current_keyframe)
@@ -80,32 +75,28 @@ void Mapping::OccupanyMapping(KeyFrame &current_keyframe)
     Eigen::Matrix4f robot_pose = current_keyframe.pose;
     CloudData::CLOUD_PTR cloud_ptr(new CloudData::CLOUD());
     std::string file_path = "";
-    std::string key_frames_path_ = "/home/chenw/ROS1/baseline_ws/src/mrobot_frame/slam_data/key_frames";
+    std::string key_frames_path_ = "/home/ncu/chenw/mrobot_frame_ws/src/mrobot_frame/slam_data/key_frames";
     file_path = key_frames_path_ + "/key_frame_" + std::to_string(current_keyframe.index) + ".pcd";
     pcl::io::loadPCDFile(file_path, *cloud_ptr); //cloud为点云指针
     
     
-    
     //先获取机器人位姿
-    Eigen::Matrix3f rotation_matrix = robot_pose.block(0,0,3,3);//从(0,0)开始取三行三列
-    Eigen::Vector3f eulerAngle = rotation_matrix.eulerAngles(2,1,0); //ZYX旋转顺序
+    Eigen::Matrix3f rotation_matrix = robot_pose.block<3,3>(0,0);//从(0,0)开始取三行三列
+    Eigen::Vector3f eulerAngle = rotation_matrix.eulerAngles(2,1,0); //ZYX旋转顺序(只有一个θ，不用考虑旋转矩阵中旋转顺序的问题)
     Eigen::Vector3f robotPose(robot_pose(0,3),robot_pose(1,3),eulerAngle(0)); //enlerAngle可能差2pai
     
+    LOG(INFO) << "robotPose" << robotPose(0) << "  " << robotPose(1)<< "  " << robotPose(2)  << "  " << current_keyframe.index;
     
-    ROS_ERROR("**********************************************************************************");
-    std::cout << rotation_matrix << std::endl; 
-
-    //ROS_INFO("***************************************");
-    std::cout << "current_keyframe.eulerAngle " << eulerAngle(0) << std::endl;
-    ROS_ERROR("**********************************************************************************");
     
 
     GridIndex robotIndex = ConvertWorld2GridIndex(robotPose(0), robotPose(1));
     //每一个激光束
-    for(auto id=0;id < (*cloud_ptr).size();id++){
+    for(int id=0;id < (*cloud_ptr).size();id++){
 
-        double world_x = cloud_ptr->at(id).x + robotPose(0);
-        double world_y = cloud_ptr->at(id).y + robotPose(1);
+        // double world_x = cloud_ptr->at(id).x + robotPose(0); //robotPose最好直接是激光雷达的位姿
+        // double world_y = cloud_ptr->at(id).y + robotPose(1);
+        double world_x = cloud_ptr->at(id).x + robotPose(0); //robotPose最好直接是激光雷达的位姿
+        double world_y = -cloud_ptr->at(id).y + robotPose(1);
         // std::cout << "robotPose_x=  " << robotPose(0) << "  robotPose_y=   " << robotPose(1) << std::endl;
         // std::cout << "world_x=  " << world_x << "  world_y=   " << world_y << std::endl;
         
@@ -138,64 +129,6 @@ void Mapping::OccupanyMapping(KeyFrame &current_keyframe)
 
    
 }
-
-//一帧点云对应一个机器人位姿   
-// void Mapping::OccupanyMapping(CloudData &cloud_data, PoseData &robot_poses)
-// {
-//     //std::cout << "开始建图，请稍后..." << std::endl;
-
-//     //先获取机器人位姿
-//     Eigen::Matrix3f rotation_matrix = robot_poses.pose.block(0,0,3,3);//从(0,0)开始取三行三列
-//     Eigen::Vector3f eulerAngle = rotation_matrix.eulerAngles(2,1,0); //ZYX旋转顺序
-//     Eigen::Vector3f robotPose(robot_poses.pose(0,3),robot_poses.pose(1,3),eulerAngle(0));
-//     // std::cout << "x = " << robot_poses.pose(0,3) << "y = " << robot_poses.pose(1,3) << "angle = " << atan2(robot_poses.pose(1,0),robot_poses.pose(0,0)) << std::endl;
-//     // std::cout << "x2 = " << robotPose(0) << "y2 = " << robotPose(1) << "angle2 = " << robotPose(2) << std::endl;
-//     // bool first_frame = true;
-//     // if(first_frame){
-//     //     std::cout << "x = " << robot_poses.pose(0,3) << "y = " << robot_poses.pose(1,3) << "angle = " << atan2(robot_poses.pose(1,0),robot_poses.pose(0,0)) << std::endl;
-//     //     std::cout << "x2 = " << robotPose(0) << "y2 = " << robotPose(1) << "angle2 = " << robotPose(2) << std::endl;
-//     //     first_frame = false;
-//     // }
-//     //Eigen::Vector3d robotPose = ((double)robot_poses.pose(0,3),(double)robot_poses.pose(1,3),(double)atan2(robot_poses.pose(1,0),robot_poses.pose(0,0)));
-//     GridIndex robotIndex = ConvertWorld2GridIndex(robotPose(0), robotPose(1));
-//     //每一个激光束
-//     for(int id=0;id < (*cloud_data.cloud_ptr).size();id++){
-
-//         double world_x = cloud_data.cloud_ptr->at(id).x + robotPose(0);
-//         double world_y = cloud_data.cloud_ptr->at(id).y + robotPose(1);
-//         // std::cout << "robotPose_x=  " << robotPose(0) << "  robotPose_y=   " << robotPose(1) << std::endl;
-//         // std::cout << "world_x=  " << world_x << "  world_y=   " << world_y << std::endl;
-        
-//         GridIndex beamPointIndex = ConvertWorld2GridIndex(world_x,world_y);
-//         //std::cout << "beamPointIndex.x=   " << beamPointIndex.x << "   beamPointIndex.y=    " << beamPointIndex.y << std::endl;
-//         std::vector<GridIndex> beamTraceindexes = TraceLine(robotIndex.x,robotIndex.y,beamPointIndex.x,beamPointIndex.y);
-//         for(auto index : beamTraceindexes){
-//             std::cout << "Index_x=  " << index.x << "   Index_y：  " << index.y << std::endl;
-
-//             if(isValidGridIndex(index)){
-//                 int tmpLinearIndex = GridIndexToLinearIndex(index); //tmpLinearIndex一直为1？
-//                 if(pMap[tmpLinearIndex] == 0) continue;
-//                 pMap[tmpLinearIndex] += mapParams.log_free;
-//                 //std::cout << "tmpLinearIndex=  " << tmpLinearIndex << "   pMap值(路经点)：  " << pMap[tmpLinearIndex] << std::endl;
-//             }else{
-//                 //std::cerr << "index if invalid!!!" << std::endl;
-//             }
-//         }//for
-
-//         if(isValidGridIndex(beamPointIndex)){
-//             int tmpLinearIndex = GridIndexToLinearIndex(beamPointIndex);
-//             pMap[tmpLinearIndex] += mapParams.log_occ;
-//             std::cout << "tmpLinearIndex=  " << tmpLinearIndex << "    pMap值(占据点)：  " << pMap[tmpLinearIndex] << std::endl;
-//             if(pMap[tmpLinearIndex] >= 100) pMap[tmpLinearIndex] = 100;
-//         }else{
-//             //std::cerr << "beamPointIndex if invalid!!!" << std::endl;
-//         }
-//     }//一束激光雷达数据中的数据点遍历
-//     // double world_x = (*cloud_data.cloud_ptr).points
-
-   
-// }
-
 
 
 
@@ -292,7 +225,7 @@ GridIndex Mapping::ConvertWorld2GridIndex(double x, double y)
 int Mapping::GridIndexToLinearIndex(GridIndex index)
 {
     int linear_index;
-    linear_index = index.y + index.x * mapParams.width;
+    linear_index = index.x + index.y * mapParams.width;
     return linear_index;
 }
 
@@ -334,15 +267,14 @@ nav_msgs::OccupancyGrid Mapping::GetCurrentMap() {
     //0~100
     // int cnt0, cnt1, cnt2;
     // cnt0 = cnt1 = cnt2 = 100;
-    for (auto i = 0; i < Gridmap.info.width * Gridmap.info.height; i++)
+    for (int i = 0; i < Gridmap.info.width * Gridmap.info.height; i++)
     {
-        if (Gridmap.data[i] == 50) //？
+        if (pMap[i] == 50) //？
         {
             Gridmap.data[i] = -1.0; //Unknown is -1.
         }
         else
         {
-
             Gridmap.data[i] = pMap[i]; //unsigned char *pMap; //指向unsigned char类型元素的指针
         }
     }

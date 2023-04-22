@@ -56,6 +56,7 @@ bool DataPretreatFlow::ValidData() {
 
     cloud_data_buff_.pop_front();
 
+    
 
     return true;
 }
@@ -70,7 +71,7 @@ bool DataPretreatFlow::TransformDataToMap() {
 
 bool DataPretreatFlow::PublishData() {
     cloud_pub_ptr_->Publish(current_cloud_data_.cloud_ptr, current_cloud_data_.time);
-    odom_pub_ptr_->Publish(tf_pose_, current_cloud_data_.time);
+    odom_pub_ptr_->Publish(tf_pose_, current_cloud_data_.time); //轮式里程计
 
     return true;
 }

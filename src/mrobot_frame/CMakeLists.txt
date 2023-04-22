@@ -25,8 +25,11 @@ find_package(catkin REQUIRED COMPONENTS
   std_msgs
 )
 
+
+
 set(ALL_TARGET_LIBRARIES "")
 
+include(cmake/glog.cmake)
 include(cmake/YAML.cmake)
 include(cmake/PCL.cmake)
 include(cmake/eigen.cmake)

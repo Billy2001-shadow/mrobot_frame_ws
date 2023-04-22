@@ -34,7 +34,7 @@ class DataPretreatFlow {
     std::shared_ptr<OdometryPublisher> odom_pub_ptr_;
 
     std::deque<CloudData> cloud_data_buff_;
-
+    
     CloudData current_cloud_data_;
 
     Eigen::Matrix4f tf_pose_ = Eigen::Matrix4f::Identity();

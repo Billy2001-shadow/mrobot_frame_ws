@@ -22,7 +22,7 @@ void CloudPublisher::Publish(CloudData::CLOUD_PTR&  cloud_ptr_input) {
 
 void CloudPublisher::PublishData(CloudData::CLOUD_PTR&  cloud_ptr_input, ros::Time time) {
     sensor_msgs::PointCloud2Ptr cloud_ptr_output(new sensor_msgs::PointCloud2());
-    Transcloud::PclToPoint2(cloud_ptr_input, cloud_ptr_output);
+    Transcloud::PclToPoint2(cloud_ptr_input, cloud_ptr_output); //先转成ROS的数据格式再发出去
 
     cloud_ptr_output->header.stamp = time;
     cloud_ptr_output->header.frame_id = frame_id_;

@@ -18,6 +18,16 @@ bool save_Gridmap_callback(saveGridmap::Request &request, saveGridmap::Response 
 
 int main(int argc, char *argv[]) {
 
+    google::InitGoogleLogging(argv[0]);
+    FLAGS_log_dir = WORK_SPACE_PATH + "/log";
+    FLAGS_alsologtostderr = 1;
+    FLAGS_colorlogtostderr = true;  //是否启用不同颜色显示
+
+ 
+    // google::SetLogDestination(google::GLOG_INFO,"/home/ncu/chenw/mrobot_frame_ws/src/mrobot_frame/log/info/");  //设置日志级别
+    // google::SetLogDestination(google::GLOG_WARNING,"/home/ncu/chenw/mrobot_frame_ws/src/mrobot_frame/log/warning/");
+    // google::SetLogDestination(google::GLOG_ERROR,"/home/ncu/chenw/mrobot_frame_ws/src/mrobot_frame/log/error/");
+
     ros::init(argc, argv, "mrobot_frame_mapping_node");
     ros::NodeHandle nh;
     std::string cloud_topic;
@@ -28,6 +38,10 @@ int main(int argc, char *argv[]) {
     ros::ServiceServer service = nh.advertiseService("save_Gridmap", save_Gridmap_callback); //需不需要建图
 
     ros::Rate rate(100);
+
+    LOG(INFO) << "[MAIN] mapping_node start!";
+
+
     while (ros::ok()) {
         ros::spinOnce();
 

@@ -6,7 +6,8 @@ bool Transcloud::LaserscanToPcl(const sensor_msgs::LaserScan::ConstPtr& scan, Cl
     sensor_msgs::PointCloud2 cloud;
 
     //普通转换
-    projector_->projectLaser(*scan, cloud);        
+    projector_->projectLaser(*scan, cloud);  //转换的过程中会把inf等异常值去除掉
+
     //使用tf的转换
     // projector_->transformLaserScanToPointCloud("laser", *scan, cloud, tfListener_);
     pclcloud.time = cloud.header.stamp.toSec();
