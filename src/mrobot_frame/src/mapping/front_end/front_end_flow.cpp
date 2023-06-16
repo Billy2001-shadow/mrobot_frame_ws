@@ -8,7 +8,7 @@ FrontEndFlow::FrontEndFlow(ros::NodeHandle& nh, std::string cloud_topic, std::st
     cloud_sub_ptr_ = std::make_shared<CloudSubscriber2>(nh, cloud_topic, 100000);
     tf_pose_ptr_ = std::make_shared<TFListener>(nh, "/base_link", "/front_laser_link");
     //发布位姿信息
-    laser_odom_pub_ptr_ = std::make_shared<OdometryPublisher>(nh, odom_topic, "/map", "/lidar", 100);
+    laser_odom_pub_ptr_ = std::make_shared<OdometryPublisher>(nh, odom_topic, "map", "/lidar", 100);
 
     front_end_ptr_ = std::make_shared<FrontEnd>();
 }

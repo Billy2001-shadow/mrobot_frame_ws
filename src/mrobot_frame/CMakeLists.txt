@@ -1,14 +1,71 @@
-cmake_minimum_required(VERSION 3.0.2)
-project(mrobot_frame)
+# cmake_minimum_required(VERSION 3.0.2)
+# project(mrobot_frame)
 
+
+# SET(CMAKE_BUILD_TYPE "Release")
+# SET(CMAKE_CXX_FLAGS_RELEASE "$ENV{CXXFLAGS} -O3 -Wall")
+# add_compile_options(-std=c++14)
+# add_definitions(-std=c++14)
+
+# set(WORK_SPACE_PATH ${PROJECT_SOURCE_DIR})
+# ADD_DEFINITIONS(-D_WORK_SPACE_PATH=\"${PROJECT_SOURCE_DIR}\")
+
+# find_package(catkin REQUIRED COMPONENTS
+#   laser_geometry
+#   pcl_conversions
+#   pcl_ros
+#   roscpp
+#   rospy
+#   geometry_msgs
+#   eigen_conversions
+#   message_generation 
+#   sensor_msgs
+#   tf
+#   std_srvs
+#   std_msgs
+# )
+
+
+
+# set(ALL_TARGET_LIBRARIES "")
+
+# include(cmake/glog.cmake)
+# include(cmake/YAML.cmake)
+# include(cmake/PCL.cmake)
+# include(cmake/eigen.cmake)
+# include(cmake/g2o.cmake)
+# include(cmake/global_defination.cmake)
+
+# add_service_files(
+#    FILES
+#    saveMap.srv
+#    optimizeMap.srv
+#    saveGridmap.srv
+# )
+
+# generate_messages(
+#    DEPENDENCIES
+#    std_msgs
+# )
+
+# catkin_package()
+
+# include_directories(include ${catkin_INCLUDE_DIRS})
+
+# file(GLOB_RECURSE ALL_SRCS "*.cpp")
+# file(GLOB_RECURSE NODE_SRCS "*_node.cpp")
+# file(GLOB_RECURSE THIRD_PARTY_SRCS "third_party/*.cpp")
+# list(REMOVE_ITEM ALL_SRCS ${NODE_SRCS})
+# list(REMOVE_ITEM ALL_SRCS ${THIRD_PARTY_SRCS})
+
+
+cmake_minimum_required(VERSION 2.8.3)
+project(mrobot_frame)
 
 SET(CMAKE_BUILD_TYPE "Release")
 SET(CMAKE_CXX_FLAGS_RELEASE "$ENV{CXXFLAGS} -O3 -Wall")
 add_compile_options(-std=c++14)
 add_definitions(-std=c++14)
-
-set(WORK_SPACE_PATH ${PROJECT_SOURCE_DIR})
-ADD_DEFINITIONS(-D_WORK_SPACE_PATH=\"${PROJECT_SOURCE_DIR}\")
 
 find_package(catkin REQUIRED COMPONENTS
   laser_geometry
@@ -25,17 +82,6 @@ find_package(catkin REQUIRED COMPONENTS
   std_msgs
 )
 
-
-
-set(ALL_TARGET_LIBRARIES "")
-
-include(cmake/glog.cmake)
-include(cmake/YAML.cmake)
-include(cmake/PCL.cmake)
-include(cmake/eigen.cmake)
-include(cmake/g2o.cmake)
-include(cmake/global_defination.cmake)
-
 add_service_files(
    FILES
    saveMap.srv
@@ -48,12 +94,21 @@ generate_messages(
    std_msgs
 )
 
-catkin_package()
+set(ALL_TARGET_LIBRARIES "")
+
+include(cmake/glog.cmake)
+include(cmake/YAML.cmake)
+include(cmake/PCL.cmake)
+include(cmake/eigen.cmake)
+include(cmake/geographic.cmake)
+include(cmake/g2o.cmake)
 
 include_directories(include ${catkin_INCLUDE_DIRS})
+include(cmake/global_defination.cmake)
+catkin_package()
 
 file(GLOB_RECURSE ALL_SRCS "*.cpp")
-file(GLOB_RECURSE NODE_SRCS "*_node.cpp")
+file(GLOB_RECURSE NODE_SRCS "src/apps/*_node.cpp")
 file(GLOB_RECURSE THIRD_PARTY_SRCS "third_party/*.cpp")
 list(REMOVE_ITEM ALL_SRCS ${NODE_SRCS})
 list(REMOVE_ITEM ALL_SRCS ${THIRD_PARTY_SRCS})

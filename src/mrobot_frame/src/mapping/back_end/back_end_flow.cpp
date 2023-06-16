@@ -11,9 +11,9 @@ BackEndFlow::BackEndFlow(ros::NodeHandle& nh) {
     laser_odom_sub_ptr_ = std::make_shared<OdometrySubscriber>(nh, "/laser_odom_pose", 100000); //激光里程计位姿(构建节点和相邻边)
     loop_pose_sub_ptr_ = std::make_shared<LoopPoseSubscriber>(nh, "/loop_pose", 100000);//回环位姿(构建回环边)
     //发布
-    transformed_odom_pub_ptr_ = std::make_shared<OdometryPublisher>(nh, "/transformed_odom", "/map", "/lidar", 100);//优化后的位姿？
-    key_frame_pub_ptr_ = std::make_shared<KeyFramePublisher>(nh, "/key_frame", "/map", 100);//关键帧(最新的)
-    key_frames_pub_ptr_ = std::make_shared<KeyFramesPublisher>(nh, "/optimized_key_frames", "/map", 100);//历史关键帧
+    transformed_odom_pub_ptr_ = std::make_shared<OdometryPublisher>(nh, "/transformed_odom", "map", "/lidar", 100);//优化后的位姿？
+    key_frame_pub_ptr_ = std::make_shared<KeyFramePublisher>(nh, "/key_frame", "map", 100);//关键帧(最新的)
+    key_frames_pub_ptr_ = std::make_shared<KeyFramesPublisher>(nh, "/optimized_key_frames", "map", 100);//历史关键帧
 
     back_end_ptr_ = std::make_shared<BackEnd>();
 }
