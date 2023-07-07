@@ -16,10 +16,10 @@ local_map_filter: no_filter # 选择滑窗地图点云滤波方法，目前支�
 # 各配置选项对应参数
 ## 匹配相关参数
 NDT:
-    res : 1.0
-    step_size : 0.1
-    trans_eps : 0.01
-    max_iter : 30
+    res : 0.5
+    step_size : 0.18
+    trans_eps : 0.001
+    max_iter : 100
 ## 滤波相关参数
 voxel_filter:
     local_map:

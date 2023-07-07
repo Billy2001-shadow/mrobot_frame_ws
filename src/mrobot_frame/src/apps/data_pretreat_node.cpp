@@ -8,7 +8,7 @@ int main(int argc, char **argv)
     ros::init(argc, argv, "mrobot_frame_data_pretreat_node"); // 节点的名字
     ros::NodeHandle nh;
 
-    std::shared_ptr<DataPretreatFlow> data_pretreat_flow_ptr = std::make_shared<DataPretreatFlow>(nh, "/pretreat_cloud");
+    std::shared_ptr<DataPretreatFlow> data_pretreat_flow_ptr = std::make_shared<DataPretreatFlow>(nh, "/pretreat_cloud");  //订阅话题初始化
     
 
     ros::Rate rate(100);
@@ -16,7 +16,7 @@ int main(int argc, char **argv)
         
         ros::spinOnce();
 
-        data_pretreat_flow_ptr->Run();
+        data_pretreat_flow_ptr->Run(); //订阅程序和数据输出程序分开
 
         rate.sleep();
     }

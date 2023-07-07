@@ -23,7 +23,7 @@ int main(int argc, char *argv[]) {
 
         front_end_flow_ptr->Run();
 
-        rate.sleep();
+        rate.sleep();  //订阅不那么快？ 控制节点的频率？
     }
 
     return 0;

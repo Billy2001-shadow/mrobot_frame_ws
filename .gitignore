@@ -1,9 +1,8 @@
+# Prerequisites
+*.d
 *.pcd
 /build/
 /devel/
-# Prerequisites
-*.d
-
 # Compiled Object files
 *.slo
 *.lo

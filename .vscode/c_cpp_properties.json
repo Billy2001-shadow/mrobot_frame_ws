@@ -6,8 +6,8 @@
         "limitSymbolsToIncludedHeaders": true
       },
       "includePath": [
-        "/home/ncu/chenw/mrobot_frame_ws/devel/include/**",
-        "/opt/ros/melodic/include/**",
+        "/home/nuc/Vscode/mrobot_frame_ws/devel/include/**",
+        "/opt/ros/noetic/include/**",
         "/usr/include/**"
       ],
       "name": "ROS"

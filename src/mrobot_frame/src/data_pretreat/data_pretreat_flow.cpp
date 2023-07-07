@@ -4,20 +4,32 @@
 
 namespace mrobot_frame {
 DataPretreatFlow::DataPretreatFlow(ros::NodeHandle& nh, std::string cloud_topic) {
+
+    //basic_localization_stage_indexed.bag
+    // subscriber
+    cloud_sub_ptr_ = std::make_shared<CloudSubscriber>(nh, "/base_scan", 100000);
+    tf_pose_ptr_ = std::make_shared<TFListener>(nh, "/odom", "/base_link");
+    
+    // publisher
+    cloud_pub_ptr_ = std::make_shared<CloudPublisher>(nh, cloud_topic, "map",100);
+    odom_pub_ptr_ = std::make_shared<OdometryPublisher>(nh, "/odom_pose", "map", "/base_link", 100);
+
     // // subscriber
     // cloud_sub_ptr_ = std::make_shared<CloudSubscriber>(nh, "/scan", 100000);
     // tf_pose_ptr_ = std::make_shared<TFListener>(nh, "/odom", "/base_link");
     
     // // publisher
-    // cloud_pub_ptr_ = std::make_shared<CloudPublisher>(nh, cloud_topic, "/map",100);
-    // odom_pub_ptr_ = std::make_shared<OdometryPublisher>(nh, "/odom_pose", "/map", "/base_link", 100);
-    cloud_sub_ptr_ = std::make_shared<CloudSubscriber>(nh, "/laser_scan", 100000);
-    tf_pose_ptr_ = std::make_shared<TFListener>(nh, "/odom", "/footprint");
+    // cloud_pub_ptr_ = std::make_shared<CloudPublisher>(nh, cloud_topic, "map",100);
+    // odom_pub_ptr_ = std::make_shared<OdometryPublisher>(nh, "/odom_pose", "map", "/base_link", 100);
+    
+    // //subscriber
+    // cloud_sub_ptr_ = std::make_shared<CloudSubscriber>(nh, "/laser_scan", 100000);
+    // tf_pose_ptr_ = std::make_shared<TFListener>(nh, "/odom", "/footprint");
     
     
-    // publisher
-    cloud_pub_ptr_ = std::make_shared<CloudPublisher>(nh, cloud_topic, "map",100);
-    odom_pub_ptr_ = std::make_shared<OdometryPublisher>(nh, "/odom_pose", "map", "/footprint", 100);
+    // // publisher
+    // cloud_pub_ptr_ = std::make_shared<CloudPublisher>(nh, cloud_topic, "map",100);
+    // odom_pub_ptr_ = std::make_shared<OdometryPublisher>(nh, "/odom_pose", "map", "/footprint", 100);
 }
 
 bool DataPretreatFlow::Run() {

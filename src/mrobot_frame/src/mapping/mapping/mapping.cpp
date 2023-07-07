@@ -75,7 +75,8 @@ void Mapping::OccupanyMapping(KeyFrame &current_keyframe)
     Eigen::Matrix4f robot_pose = current_keyframe.pose;
     CloudData::CLOUD_PTR cloud_ptr(new CloudData::CLOUD());
     std::string file_path = "";
-    std::string key_frames_path_ = "/home/ncu/chenw/mrobot_frame_ws/src/mrobot_frame/slam_data/key_frames";
+    // std::string key_frames_path_ = "/home/ncu/chenw/mrobot_frame_ws/src/mrobot_frame/slam_data/key_frames";
+    std::string key_frames_path_ = "/home/nuc/Vscode/mrobot_frame_ws/src/mrobot_frame/slam_data/key_frames";
     file_path = key_frames_path_ + "/key_frame_" + std::to_string(current_keyframe.index) + ".pcd";
     pcl::io::loadPCDFile(file_path, *cloud_ptr); //cloud为点云指针
     
