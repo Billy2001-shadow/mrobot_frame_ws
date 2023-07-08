@@ -4,8 +4,6 @@
     <!-- <arg name="bag_filename" default="/home/nuc/ROS1/bag_file/lesson5.bag"/> -->
     <!-- <arg name="bag_filename" default="/home/nuc/ROS1/bag_file/intel.bag"/> -->
     <arg name="bag_filename" default="/home/nuc/ROS1/bag_file/basic_localization_stage_indexed.bag"/>
-
-
     <!-- <node pkg="tf2_ros" type="static_transform_publisher" name="link_broadcaster1" 
         args="0 0 0 0 0 0 footprint base_link" />
     <node pkg="tf2_ros" type="static_transform_publisher" name="link_broadcaster2" 
