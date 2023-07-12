@@ -1,15 +1,18 @@
 <launch>
 
     <!-- bag的地址与名称 -->
-    <arg name="bag_filename" default="/home/nuc/ROS1/bag_file/basic_localization_stage_indexed.bag"/>
+    <!-- <arg name="bag_filename" default="/home/nuc/ROS1/bag_file/basic_localization_stage_indexed.bag"/> -->
     <!-- <arg name="bag_filename" default="/home/alpaca/Documents/data/lesson1.bag"/> -->
-    <!-- <arg name="bag_filename" default="/home/nuc/ROS1/bag_file/lesson5.bag"/> -->
+    <arg name="bag_filename" default="/home/nuc/ROS1/bag_file/lesson5.bag"/>
     <!-- <arg name="bag_filename" default="/media/alpaca/ubuntu18/data/intel.bag"/> -->
-
-    
-
     <!-- 使用bag的时间戳 -->
     <param name="use_sim_time" value="true" />
+
+    <!-- base_link to front_laser_link -->
+    <node pkg="tf2_ros" type="static_transform_publisher" name="link_broadcaster1" 
+        args="0 0 0 0 0 0 footprint base_link" />
+    <node pkg="tf2_ros" type="static_transform_publisher" name="link_broadcaster2" 
+        args="0 0 0.254 0 0 3.1415926 base_link front_laser_link" />
 
     <!-- 启动节点 -->
     <node name="mrobot_frame_data_pretreat_node" pkg="mrobot_frame" type="mrobot_frame_data_pretreat_node" output="screen" />
@@ -18,7 +21,7 @@
     <!-- <param name="robot_description" textfile="/home/chenw/ROS1/m_robot_ws/src/m_robot_frame/urdf/test.xacro" /> -->
     <!-- launch rviz -->
     <node name="rviz" pkg="rviz" type="rviz" required="false"
-        args="-d $(find mrobot_frame)/launch/test.rviz" />
+        args="-d $(find mrobot_frame)/rviz/data_pretreat.rviz" />
     <!-- play bagfile -->
     <node name="playbag" pkg="rosbag" type="play" args="--clock $(arg bag_filename)" />
     
