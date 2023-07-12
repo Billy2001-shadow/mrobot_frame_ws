@@ -21,7 +21,7 @@ int main(int argc, char *argv[]) {
     while (ros::ok()) {
         ros::spinOnce();
 
-        front_end_flow_ptr->Run();
+        front_end_flow_ptr->Run();  //订阅预处理之后的点云并通过
 
         rate.sleep();  //订阅不那么快？ 控制节点的频率？
     }
