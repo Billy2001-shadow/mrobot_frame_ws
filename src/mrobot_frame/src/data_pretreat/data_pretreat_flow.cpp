@@ -11,8 +11,8 @@ DataPretreatFlow::DataPretreatFlow(ros::NodeHandle& nh, std::string cloud_topic)
     // tf_pose_ptr_ = std::make_shared<TFListener>(nh, "/odom", "/base_link");
     
     // // // publisher
-    // cloud_pub_ptr_ = std::make_shared<CloudPublisher>(nh, cloud_topic, "map",100);
-    // odom_pub_ptr_ = std::make_shared<OdometryPublisher>(nh, "/odom_pose", "map", "/base_link", 100);  //轮式里程计？
+    // cloud_pub_ptr_ = std::make_shared<CloudPublisher>(nh, cloud_topic, "odom",100);
+    // odom_pub_ptr_ = std::make_shared<OdometryPublisher>(nh, "/odom_pose", "odom", "/base_link", 100);  //轮式里程计？
 
     //basic_localization_stage_indexed.bag
     // subscriber
@@ -33,12 +33,12 @@ DataPretreatFlow::DataPretreatFlow(ros::NodeHandle& nh, std::string cloud_topic)
     
     //subscriber
     cloud_sub_ptr_ = std::make_shared<CloudSubscriber>(nh, "/laser_scan", 100000);
-    tf_pose_ptr_ = std::make_shared<TFListener>(nh, "/odom", "/footprint");
+    tf_pose_ptr_ = std::make_shared<TFListener>(nh, "/odom", "/base_link");
     
     
     // publisher
-    cloud_pub_ptr_ = std::make_shared<CloudPublisher>(nh, cloud_topic, "front_laser_link",100);
-    odom_pub_ptr_ = std::make_shared<OdometryPublisher>(nh, "/odom_pose", "odom", "footprint", 100);
+    cloud_pub_ptr_ = std::make_shared<CloudPublisher>(nh, cloud_topic, "odom",100);  //用于将激光数据转换到odom_frame_坐标系下。
+    odom_pub_ptr_ = std::make_shared<OdometryPublisher>(nh, "/odom_pose", "odom", "/base_link", 100);
 }
 
 bool DataPretreatFlow::Run() {
@@ -85,7 +85,7 @@ bool DataPretreatFlow::ValidData() {
 bool DataPretreatFlow::TransformDataToMap() {
     tf_pose_ptr_->LookupData(tf_pose_);
 
-    // pcl::transformPointCloud(*current_cloud_data_.cloud_ptr, *current_cloud_data_.cloud_ptr, tf_pose_);  //将点云转换到odom坐标系下
+    //pcl::transformPointCloud(*current_cloud_data_.cloud_ptr, *current_cloud_data_.cloud_ptr, tf_pose_);  //将点云转换到odom坐标系下
 
     return true;
 }

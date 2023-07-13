@@ -77,7 +77,9 @@
         "typeinfo": "cpp",
         "*.ipp": "cpp",
         "bit": "cpp",
-        "shared_mutex": "cpp"
+        "shared_mutex": "cpp",
+        "core": "cpp",
+        "numericaldiff": "cpp"
     },
     "cmake.sourceDirectory": "/home/nuc/Vscode/mrobot_frame_ws/src/mrobot_frame"
 }

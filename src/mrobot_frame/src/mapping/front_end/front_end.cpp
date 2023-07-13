@@ -81,7 +81,6 @@ bool FrontEnd::InitFilter(std::string filter_user, std::shared_ptr<CloudFilterIn
 bool FrontEnd::Update(const CloudData& cloud_data, Eigen::Matrix4f& cloud_pose) {
     current_frame_.cloud_data.time = cloud_data.time;
     std::vector<int> indices;
-    //std::cout << "滤波前：：：：：：：：：" << (*cloud_data.cloud_ptr).size() << std::endl;
     //将原始数据进行处理，过滤后的数据在原始数据中的下标保存在indices中
     pcl::removeNaNFromPointCloud(*cloud_data.cloud_ptr, *current_frame_.cloud_data.cloud_ptr, indices);
     
@@ -97,20 +96,12 @@ bool FrontEnd::Update(const CloudData& cloud_data, Eigen::Matrix4f& cloud_pose) 
     static Eigen::Matrix4f predict_pose = init_pose_;
     static Eigen::Matrix4f last_key_frame_pose = init_pose_;
     
-    // if (first_scan_) {
-    //     first_scan_ = false;
-    //     current_frame_.pose = init_pose_;
-    //     UpdateWithNewFrame(current_frame_);
-    //     cloud_pose = current_frame_.pose;
-    //     return true;
-    // }
-
     // 局部地图容器中没有关键帧，代表是第一帧数据
     // 此时把当前帧数据作为第一个关键帧，并更新局部地图容器和全局地图容器
     if (local_map_frames_.size() == 0) {
-        current_frame_.pose = init_pose_;
+        current_frame_.pose = init_pose_;   //第一帧关键帧的位姿可以设置
         UpdateWithNewFrame(current_frame_);
-        cloud_pose = current_frame_.pose;
+        cloud_pose = current_frame_.pose;   //需要返回的激光里程计位姿
         return true;
     }
 
@@ -143,13 +134,16 @@ bool FrontEnd::SetInitPose(const Eigen::Matrix4f& init_pose) {
     return true;
 }
 
+/*
+根据新的关键帧更新局部地图，并设置SetInputTarget(local_map_ptr_);
+*/
 bool FrontEnd::UpdateWithNewFrame(const Frame& new_key_frame) {
     Frame key_frame = new_key_frame;
     // 这一步的目的是为了把关键帧的点云保存下来
     // 由于用的是共享指针，所以直接复制只是复制了一个指针而已
     // 此时无论你放多少个关键帧在容器里，这些关键帧点云指针都是指向的同一个点云
     //为了让key_frame不和输入new_key_frame指向同一个点云，所以要new一个点云，让key_frame的指针指向它
-    key_frame.cloud_data.cloud_ptr.reset(new CloudData::CLOUD(*new_key_frame.cloud_data.cloud_ptr));
+    key_frame.cloud_data.cloud_ptr.reset(new CloudData::CLOUD(*new_key_frame.cloud_data.cloud_ptr)); //new一个点云，让key_frame的指针指向它(new_key_frame对象)
     CloudData::CLOUD_PTR transformed_cloud_ptr(new CloudData::CLOUD());
     
     // pcl::transformPointCloud(*key_frame.cloud_data.cloud_ptr, 
@@ -168,7 +162,7 @@ bool FrontEnd::UpdateWithNewFrame(const Frame& new_key_frame) {
     for (size_t i = 0; i < local_map_frames_.size(); ++i) {
         pcl::transformPointCloud(*local_map_frames_.at(i).cloud_data.cloud_ptr, 
                                  *transformed_cloud_ptr, 
-                                 local_map_frames_.at(i).pose);
+                                 local_map_frames_.at(i).pose);  //pose是相对第一帧的？
 
         *local_map_ptr_ += *transformed_cloud_ptr;
         // *local_map_ptr_ += *local_map_frames_.at(i).cloud_data.cloud_ptr;

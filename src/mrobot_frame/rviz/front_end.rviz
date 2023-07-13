@@ -9,7 +9,6 @@ Panels:
         - /Odometry1
         - /Odometry1/Shape1
         - /Odometry2
-        - /Odometry2/Status1
         - /Odometry2/Shape1
         - /Odometry2/Covariance1
       Splitter Ratio: 0.5628742575645447
@@ -31,7 +30,7 @@ Panels:
   - Class: rviz/Time
     Name: Time
     SyncMode: 0
-    SyncSource: PointCloud2
+    SyncSource: ""
 Preferences:
   PromptSaveOnExit: true
 Toolbars:
@@ -69,7 +68,7 @@ Visualization Manager:
       Color: 255; 255; 255
       Color Transformer: Intensity
       Decay Time: 0
-      Enabled: true
+      Enabled: false
       Invert Rainbow: false
       Max Color: 255; 255; 255
       Min Color: 0; 0; 0
@@ -84,7 +83,7 @@ Visualization Manager:
       Unreliable: false
       Use Fixed Frame: true
       Use rainbow: true
-      Value: true
+      Value: false
     - Angle Tolerance: 0.10000000149011612
       Class: rviz/Odometry
       Covariance:
@@ -183,7 +182,7 @@ Visualization Manager:
   Views:
     Current:
       Class: rviz/Orbit
-      Distance: 21.681804656982422
+      Distance: 10.747360229492188
       Enable Stereo Rendering:
         Stereo Eye Separation: 0.05999999865889549
         Stereo Focal Distance: 1
@@ -191,17 +190,17 @@ Visualization Manager:
         Value: false
       Field of View: 0.7853981852531433
       Focal Point:
-        X: -9.206092834472656
-        Y: 5.2629570960998535
-        Z: 8.646646499633789
+        X: 0.8693060278892517
+        Y: 4.454923629760742
+        Z: 8.763101577758789
       Focal Shape Fixed Size: true
       Focal Shape Size: 0.05000000074505806
       Invert Z Axis: false
       Name: Current View
       Near Clip Distance: 0.009999999776482582
-      Pitch: 1.3797965049743652
+      Pitch: 1.3797963857650757
       Target Frame: <Fixed Frame>
-      Yaw: 4.685402870178223
+      Yaw: 4.680408000946045
     Saved: ~
 Window Geometry:
   Displays:
