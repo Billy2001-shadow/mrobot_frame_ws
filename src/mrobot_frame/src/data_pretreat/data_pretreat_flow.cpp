@@ -38,7 +38,7 @@ DataPretreatFlow::DataPretreatFlow(ros::NodeHandle& nh, std::string cloud_topic)
     
     // publisher
     cloud_pub_ptr_ = std::make_shared<CloudPublisher>(nh, cloud_topic, "front_laser_link",100);
-    odom_pub_ptr_ = std::make_shared<OdometryPublisher>(nh, "/odom_pose", "map", "footprint", 100);
+    odom_pub_ptr_ = std::make_shared<OdometryPublisher>(nh, "/odom_pose", "odom", "footprint", 100);
 }
 
 bool DataPretreatFlow::Run() {
@@ -85,7 +85,7 @@ bool DataPretreatFlow::ValidData() {
 bool DataPretreatFlow::TransformDataToMap() {
     tf_pose_ptr_->LookupData(tf_pose_);
 
-    // pcl::transformPointCloud(*current_cloud_data_.cloud_ptr, *current_cloud_data_.cloud_ptr, tf_pose_);
+    // pcl::transformPointCloud(*current_cloud_data_.cloud_ptr, *current_cloud_data_.cloud_ptr, tf_pose_);  //将点云转换到odom坐标系下
 
     return true;
 }
