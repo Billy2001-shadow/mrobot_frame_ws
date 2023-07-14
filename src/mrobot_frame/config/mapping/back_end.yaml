@@ -2,7 +2,7 @@ data_path: ./   # 数据存放路径
 
 # 关键帧
 key_frame_distance: 0.25 # 关键帧距离
-
+key_frame_angular: 0.088 #5°
 # 优化
 graph_optimizer_type: g2o # 图优化库，目前支持g2o
 

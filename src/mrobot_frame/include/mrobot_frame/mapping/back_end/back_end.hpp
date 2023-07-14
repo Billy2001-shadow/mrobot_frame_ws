@@ -39,7 +39,7 @@ class BackEnd {
     bool MaybeNewKeyFrame(const CloudData& cloud_data, const PoseData& laser_odom);
     bool MaybeOptimized();
     bool SaveOptimizedPose();
-
+    float Matrix4fToYaw(const Eigen::Matrix4f& MatrixPose);
   private:
     std::string key_frames_path_ = "";
     std::string trajectory_path_ = "";
@@ -49,6 +49,7 @@ class BackEnd {
     std::ofstream optimized_pose_ofs_;
 
     float key_frame_distance_ = 2.0;
+    float key_frame_angular_ = 0.174;
 
     bool has_new_key_frame_ = false;
     bool has_new_optimized_ = false;

@@ -37,6 +37,7 @@ bool FrontEnd::InitWithConfig() {
 
 bool FrontEnd::InitParam(const YAML::Node& config_node) {
     key_frame_distance_ = config_node["key_frame_distance"].as<float>();
+    key_frame_angular_ = config_node["key_frame_angular"].as<float>();
     local_frame_num_ = config_node["local_frame_num"].as<int>();
 
     return true;
@@ -117,16 +118,35 @@ bool FrontEnd::Update(const CloudData& cloud_data, Eigen::Matrix4f& cloud_pose) 
     last_pose = current_frame_.pose;
 
     // UpdateWithNewFrame(current_frame_);
-
-    // 匹配之后根据距离判断是否需要生成新的关键帧，如果需要，则做相应更新
-    if (fabs(last_key_frame_pose(0,3) - current_frame_.pose(0,3)) + 
+    // std::cout <<" distance = " << fabs(last_key_frame_pose(0,3) - current_frame_.pose(0,3)) + 
+    //     fabs(last_key_frame_pose(1,3) - current_frame_.pose(1,3)) +
+    //     fabs(last_key_frame_pose(2,3) - current_frame_.pose(2,3)) << std::endl;
+  
+    // 匹配之后根据距离判断是否需要生成新的关键帧，如果需要，则做相应更新           原地旋转寄(加上一个原地旋转生成新的关键帧算法) 先从last_key_pose中抽出来该帧的θ，和上一帧的θ相比较
+    if ((fabs(last_key_frame_pose(0,3) - current_frame_.pose(0,3)) + 
         fabs(last_key_frame_pose(1,3) - current_frame_.pose(1,3)) +
-        fabs(last_key_frame_pose(2,3) - current_frame_.pose(2,3)) > key_frame_distance_) {
-        UpdateWithNewFrame(current_frame_);
-        last_key_frame_pose = current_frame_.pose; 
-    }
+        fabs(last_key_frame_pose(2,3) - current_frame_.pose(2,3)) > key_frame_distance_)  ||
+
+        fabs( Matrix4fToYaw(last_key_frame_pose) - Matrix4fToYaw(current_frame_.pose) ) > key_frame_angular_
+       )
+        {
+            UpdateWithNewFrame(current_frame_);
+            last_key_frame_pose = current_frame_.pose; 
+        }
+    
+
 
     return true;
+}
+
+float FrontEnd::Matrix4fToYaw(const Eigen::Matrix4f& MatrixPose)
+{
+    Eigen::Matrix3f rotationMatrix = MatrixPose.block<3, 3>(0, 0); // 提取旋转矩阵部分
+    Eigen::Vector3f euler = rotationMatrix.eulerAngles(2, 1, 0); // 将旋转矩阵转换为欧拉角
+    float yaw = euler[0];  // 获取偏航角（yaw angle）这里还得做一个角度归一化
+    
+
+    return yaw;            
 }
 
 bool FrontEnd::SetInitPose(const Eigen::Matrix4f& init_pose) {

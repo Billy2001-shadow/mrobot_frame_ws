@@ -32,13 +32,13 @@ DataPretreatFlow::DataPretreatFlow(ros::NodeHandle& nh, std::string cloud_topic)
     // odom_pub_ptr_ = std::make_shared<OdometryPublisher>(nh, "/odom_pose", "map", "/base_link", 100);
     
     //subscriber
-    cloud_sub_ptr_ = std::make_shared<CloudSubscriber>(nh, "/laser_scan", 100000);
-    tf_pose_ptr_ = std::make_shared<TFListener>(nh, "/odom", "/base_link");
+    cloud_sub_ptr_ = std::make_shared<CloudSubscriber>(nh, "/base_scan", 100000);
+    tf_pose_ptr_ = std::make_shared<TFListener>(nh, "/odom", "/base_footprint");
     
     
     // publisher
     cloud_pub_ptr_ = std::make_shared<CloudPublisher>(nh, cloud_topic, "odom",100);  //用于将激光数据转换到odom_frame_坐标系下。
-    odom_pub_ptr_ = std::make_shared<OdometryPublisher>(nh, "/odom_pose", "odom", "/base_link", 100);
+    odom_pub_ptr_ = std::make_shared<OdometryPublisher>(nh, "/odom_pose", "odom", "/base_footprint", 100);
 }
 
 bool DataPretreatFlow::Run() {

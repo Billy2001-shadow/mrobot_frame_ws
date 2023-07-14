@@ -30,6 +30,7 @@ class FrontEnd {
     bool InitRegistration(std::shared_ptr<RegistrationInterface>& registration_ptr, const YAML::Node& config_node);
     bool InitFilter(std::string filter_user, std::shared_ptr<CloudFilterInterface>& filter_ptr, const YAML::Node& config_node);
     bool UpdateWithNewFrame(const Frame& new_key_frame);
+    float Matrix4fToYaw(const Eigen::Matrix4f& MatrixPose);
 
   private:
     std::string data_path_ = "";
@@ -47,6 +48,7 @@ class FrontEnd {
     Eigen::Matrix4f init_pose_ = Eigen::Matrix4f::Identity();
 
     float key_frame_distance_ = 2.0;
+    float key_frame_angular_ = 0.17;
     int local_frame_num_ = 20;
 };
 }

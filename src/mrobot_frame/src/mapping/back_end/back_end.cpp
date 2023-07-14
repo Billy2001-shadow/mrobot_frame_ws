@@ -27,7 +27,7 @@ bool BackEnd::InitWithConfig() {
 
 bool BackEnd::InitParam(const YAML::Node& config_node) {
     key_frame_distance_ = config_node["key_frame_distance"].as<float>();
-
+    key_frame_angular_ = config_node["key_frame_angular"].as<float>();
     return true;
 }
 
@@ -120,10 +120,13 @@ bool BackEnd::MaybeNewKeyFrame(const CloudData& cloud_data, const PoseData& lase
     }
 
     // 匹配之后根据距离判断是否需要生成新的关键帧，如果需要，则做相应更新
-    if (fabs(laser_odom.pose(0,3) - last_key_pose(0,3)) + 
+    if ((fabs(laser_odom.pose(0,3) - last_key_pose(0,3)) + 
         fabs(laser_odom.pose(1,3) - last_key_pose(1,3)) +
-        fabs(laser_odom.pose(2,3) - last_key_pose(2,3)) > key_frame_distance_) {
-
+        fabs(laser_odom.pose(2,3) - last_key_pose(2,3)) > key_frame_distance_) 
+        ||
+        (fabs(Matrix4fToYaw(laser_odom.pose) - Matrix4fToYaw(last_key_pose) ) > key_frame_angular_)
+    )
+    {
         has_new_key_frame_ = true;
         last_key_pose = laser_odom.pose;
     }
@@ -143,6 +146,15 @@ bool BackEnd::MaybeNewKeyFrame(const CloudData& cloud_data, const PoseData& lase
     }
 
     return has_new_key_frame_;
+}
+
+
+float BackEnd::Matrix4fToYaw(const Eigen::Matrix4f& MatrixPose)
+{
+    Eigen::Matrix3f rotationMatrix = MatrixPose.block<3, 3>(0, 0); // 提取旋转矩阵部分
+    Eigen::Vector3f euler = rotationMatrix.eulerAngles(2, 1, 0); // 将旋转矩阵转换为欧拉角
+    float yaw = euler[0];  // 获取偏航角（yaw angle）
+    return yaw;
 }
 
 bool BackEnd::AddNodeAndEdge() {
