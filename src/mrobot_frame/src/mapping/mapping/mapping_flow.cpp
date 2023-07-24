@@ -7,12 +7,12 @@ MappingFlow::MappingFlow(ros::NodeHandle& nh, std::string cloud_topic) {
     //订阅
     //cloud_sub_ptr_ = std::make_shared<CloudSubscriber2>(nh, cloud_topic, 100000);
     //cloud_sub_ptr_ = std::make_shared<CloudSubscriber>(nh, "laser_scan", 100000);
-    optimized_key_frames_sub_ptr_ = std::make_shared<KeyFramesSubscriber>(nh, "/optimized_key_frames", 100000); //只根据历史关键帧建图
+    //optimized_key_frames_sub_ptr_ = std::make_shared<KeyFramesSubscriber>(nh, "/optimized_key_frames", 100000); //只根据历史关键帧建图
+    key_frame_sub_ptr_ = std::make_shared<KeyFrameSubscriber>(nh, "/key_frame", 100000);
     //transformed_odom_sub_ptr_ = std::make_shared<OdometrySubscriber>(nh, "/transformed_odom", 100000);
     //transformed_odom_sub_ptr_ = std::make_shared<OdometrySubscriber>(nh, "/odom", 100000); 
     //发布
     occupancygrid_pub_ptr_ = std::make_shared<GridmapPublisher>(nh,"occupancygrid","map",100);
-
     // 
     mapping_ptr_ = std::make_shared<Mapping>(); //调用核心功能类
 }
@@ -35,13 +35,13 @@ bool MappingFlow::Run() {
 bool MappingFlow::ReadData() {
     // cloud_sub_ptr_->ParseData(cloud_data_buff_);
     // transformed_odom_sub_ptr_->ParseData(transformed_odom_buff_);
-    optimized_key_frames_sub_ptr_->ParseData(optimized_key_frames_buff_);
+    key_frame_sub_ptr_->ParseData(key_frame_buff_);
 
     return true;
 }
 
 bool MappingFlow::HasData() {
-    if (optimized_key_frames_buff_.size() == 0)
+    if (key_frame_buff_.size() == 0)
         return false;
     // if (cloud_data_buff_.size() == 0)
     //     return false;
@@ -52,8 +52,8 @@ bool MappingFlow::HasData() {
 }
 
 bool MappingFlow::ValidData() {
-    current_keyframe = optimized_key_frames_buff_.front();
-    optimized_key_frames_buff_.pop_front();
+    current_keyframe = key_frame_buff_.front();
+    key_frame_buff_.pop_front();
     // current_cloud_data_ = cloud_data_buff_.front();
     // current_transformed_odom_ = transformed_odom_buff_.front();
 

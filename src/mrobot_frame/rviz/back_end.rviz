@@ -10,7 +10,6 @@ Panels:
         - /Odometry2
         - /Odometry2/Shape1
         - /Odometry2/Covariance1
-        - /PoseWithCovariance1/Status1
       Splitter Ratio: 0.5628742575645447
     Tree Height: 625
   - Class: rviz/Selection
@@ -217,7 +216,7 @@ Visualization Manager:
   Global Options:
     Background Color: 48; 48; 48
     Default Light: true
-    Fixed Frame: odom
+    Fixed Frame: map
     Frame Rate: 30
   Name: root
   Tools:
@@ -241,7 +240,7 @@ Visualization Manager:
   Views:
     Current:
       Class: rviz/Orbit
-      Distance: 34.475181579589844
+      Distance: 9.601371765136719
       Enable Stereo Rendering:
         Stereo Eye Separation: 0.05999999865889549
         Stereo Focal Distance: 1
@@ -249,17 +248,17 @@ Visualization Manager:
         Value: false
       Field of View: 0.7853981852531433
       Focal Point:
-        X: -9.169591903686523
-        Y: 1.8326689004898071
-        Z: 8.157058715820312
+        X: 3.609191417694092
+        Y: 1.462986707687378
+        Z: 8.15561580657959
       Focal Shape Fixed Size: true
       Focal Shape Size: 0.05000000074505806
       Invert Z Axis: false
       Name: Current View
       Near Clip Distance: 0.009999999776482582
-      Pitch: 1.4547964334487915
+      Pitch: 1.5697963237762451
       Target Frame: <Fixed Frame>
-      Yaw: 4.515400409698486
+      Yaw: 4.670401096343994
     Saved: ~
 Window Geometry:
   Displays:

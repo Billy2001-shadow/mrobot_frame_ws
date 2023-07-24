@@ -125,8 +125,8 @@ bool FrontEnd::Update(const CloudData& cloud_data, Eigen::Matrix4f& cloud_pose) 
     // 匹配之后根据距离判断是否需要生成新的关键帧，如果需要，则做相应更新           原地旋转寄(加上一个原地旋转生成新的关键帧算法) 先从last_key_pose中抽出来该帧的θ，和上一帧的θ相比较
     if ((fabs(last_key_frame_pose(0,3) - current_frame_.pose(0,3)) + 
         fabs(last_key_frame_pose(1,3) - current_frame_.pose(1,3)) +
-        fabs(last_key_frame_pose(2,3) - current_frame_.pose(2,3)) > key_frame_distance_)  ||
-
+        fabs(last_key_frame_pose(2,3) - current_frame_.pose(2,3)) > key_frame_distance_)  
+        ||
         fabs( Matrix4fToYaw(last_key_frame_pose) - Matrix4fToYaw(current_frame_.pose) ) > key_frame_angular_
        )
         {

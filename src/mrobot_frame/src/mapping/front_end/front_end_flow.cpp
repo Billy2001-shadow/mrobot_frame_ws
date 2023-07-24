@@ -10,7 +10,7 @@ FrontEndFlow::FrontEndFlow(ros::NodeHandle& nh, std::string cloud_topic, std::st
     // tf_pose_ptr_ = std::make_shared<TFListener>(nh, "/base_link", "/base_laser_link"); //intel.bag
     //tf_pose_ptr_ = std::make_shared<TFListener>(nh, "/base_link", "/base_laser"); //basic_localization_stage_indexed.bag
     //发布位姿信息
-    laser_odom_pub_ptr_ = std::make_shared<OdometryPublisher>(nh, odom_topic, "odom", "/base_footprint", 100);
+    laser_odom_pub_ptr_ = std::make_shared<OdometryPublisher>(nh, odom_topic, "map", "/base_footprint", 100);
 
     front_end_ptr_ = std::make_shared<FrontEnd>();
 }

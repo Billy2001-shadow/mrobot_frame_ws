@@ -23,7 +23,7 @@ class GridmapPublisher {
 
     ros::NodeHandle nh_;
     ros::Publisher publisher_;
-    std::string frame_id_ = "";
+    std::string frame_id_ = "map";
 };
 }
 

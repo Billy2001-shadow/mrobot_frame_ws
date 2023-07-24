@@ -7,6 +7,7 @@
 #include "mrobot_frame/subscriber/cloud_subscriber.hpp"
 #include "mrobot_frame/subscriber/cloud_subscriber2.hpp"
 #include "mrobot_frame/subscriber/odometry_subscriber.hpp"
+#include "mrobot_frame/subscriber/key_frame_subscriber.hpp"
 #include "mrobot_frame/subscriber/key_frames_subscriber.hpp"
 // publisher
 #include "mrobot_frame/publisher/odometry_publisher.hpp"
@@ -33,15 +34,12 @@ class MappingFlow {
   CloudData current_cloud_data_;
   PoseData current_transformed_odom_;
   KeyFrame current_keyframe;
+
   std::deque<CloudData> cloud_data_buff_;
   std::deque<PoseData> transformed_odom_buff_;
-  std::deque<KeyFrame> optimized_key_frames_buff_;
+  std::deque<KeyFrame> key_frame_buff_;
   // subscriber
-  std::shared_ptr<KeyFramesSubscriber> optimized_key_frames_sub_ptr_;
-  std::shared_ptr<CloudSubscriber> cloud_sub_ptr_;
-  std::shared_ptr<OdometrySubscriber> transformed_odom_sub_ptr_;
-  
-
+  std::shared_ptr<KeyFrameSubscriber> key_frame_sub_ptr_;
   //publisher
   std::shared_ptr<GridmapPublisher>occupancygrid_pub_ptr_;
 

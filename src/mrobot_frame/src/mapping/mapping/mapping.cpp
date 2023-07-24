@@ -70,8 +70,8 @@ bool Mapping::InitParam(const YAML::Node& config_node) {
 
 void Mapping::OccupanyMapping(KeyFrame &current_keyframe)
 {
-    std::cout << "开始建图，请稍后..." << std::endl;
-
+    
+    LOG(INFO) << "开始建图，请稍后...";
     Eigen::Matrix4f robot_pose = current_keyframe.pose;
     CloudData::CLOUD_PTR cloud_ptr(new CloudData::CLOUD());
     std::string file_path = "";
@@ -80,10 +80,16 @@ void Mapping::OccupanyMapping(KeyFrame &current_keyframe)
     file_path = key_frames_path_ + "/key_frame_" + std::to_string(current_keyframe.index) + ".pcd";
     pcl::io::loadPCDFile(file_path, *cloud_ptr); //cloud为点云指针
     
-    
     //先获取机器人位姿
     Eigen::Matrix3f rotation_matrix = robot_pose.block<3,3>(0,0);//从(0,0)开始取三行三列
     Eigen::Vector3f eulerAngle = rotation_matrix.eulerAngles(2,1,0); //ZYX旋转顺序(只有一个θ，不用考虑旋转矩阵中旋转顺序的问题)
+
+ 
+    if (eulerAngle(0) > 3.1415926)
+        eulerAngle(0) -= 2 * 3.1415926;
+    else if (eulerAngle(0) < -3.1415926)
+        eulerAngle(0) += 2 * 3.1415926;
+
     Eigen::Vector3f robotPose(robot_pose(0,3),robot_pose(1,3),eulerAngle(0)); //enlerAngle可能差2pai
     
     LOG(INFO) << "robotPose" << robotPose(0) << "  " << robotPose(1)<< "  " << robotPose(2)  << "  " << current_keyframe.index;
