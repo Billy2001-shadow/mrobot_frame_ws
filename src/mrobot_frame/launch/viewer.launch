@@ -2,7 +2,7 @@
 
     <!-- bag的地址与名称 -->
     <!-- <arg name="bag_filename" default="/home/nuc/ROS1/bag_file/lesson5.bag"/> -->
-    <arg name="bag_filename" default="/home/nuc/ROS1/bag_file/basic_localization_stage_indexed.bag"/>
+    <arg name="bag_filename" default="/home/cw/Slam/bag_flies/basic_localization_stage_indexed.bag"/>
     <!-- <arg name="bag_filename" default="/media/alpaca/ubuntu18/data/intel.bag"/> -->
 
     

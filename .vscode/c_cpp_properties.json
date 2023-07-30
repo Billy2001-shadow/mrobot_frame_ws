@@ -6,7 +6,7 @@
         "limitSymbolsToIncludedHeaders": true
       },
       "includePath": [
-        "/home/nuc/Vscode/mrobot_frame_ws/devel/include/**",
+        "/home/cw/Slam/mrobot_frame_ws/devel/include/mrobot_frame/**",
         "/opt/ros/noetic/include/**",
         "/usr/include/**"
       ],
