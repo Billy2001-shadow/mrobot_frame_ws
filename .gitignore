@@ -3,6 +3,7 @@
 *.pcd
 /build/
 /devel/
+/.cache/
 # Compiled Object files
 *.slo
 *.lo

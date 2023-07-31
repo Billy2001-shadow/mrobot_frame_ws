@@ -129,12 +129,10 @@ bool BackEnd::MaybeNewKeyFrame(const CloudData &cloud_data,
   }
 
   // 匹配之后根据距离判断是否需要生成新的关键帧，如果需要，则做相应更新
-  if ((fabs(laser_odom.pose(0, 3) - last_key_pose(0, 3)) +
-           fabs(laser_odom.pose(1, 3) - last_key_pose(1, 3)) +
-           fabs(laser_odom.pose(2, 3) - last_key_pose(2, 3)) >
-       key_frame_distance_) ||
-      (fabs(Matrix4fToYaw(laser_odom.pose) - Matrix4fToYaw(last_key_pose)) >
-       key_frame_angular_)) {
+  if (fabs(laser_odom.pose(0, 3) - last_key_pose(0, 3)) +
+          fabs(laser_odom.pose(1, 3) - last_key_pose(1, 3)) +
+          fabs(laser_odom.pose(2, 3) - last_key_pose(2, 3)) >
+      key_frame_distance_) {
     has_new_key_frame_ = true;
     last_key_pose = laser_odom.pose;
   }
