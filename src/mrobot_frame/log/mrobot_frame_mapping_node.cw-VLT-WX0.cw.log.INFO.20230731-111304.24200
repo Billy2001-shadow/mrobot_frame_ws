@@ -1,0 +1,31 @@
+Log file created at: 2023/07/31 11:13:04
+Running on machine: cw-VLT-WX0
+Log line format: [IWEF]mmdd hh:mm:ss.uuuuuu threadid file:line] msg
+I0731 11:13:04.508544 24200 mapping_node.cpp:40] [MAIN] mapping_node start!
+I0731 11:13:05.692030 24200 mapping.cpp:74] 开始建图，请稍后...
+I0731 11:13:05.693383 24200 mapping.cpp:101] robotPose0.275  0  0  0
+I0731 11:13:05.693490 24200 mapping.cpp:105] robotIndex.x = 506 robotIndex.y = 500
+I0731 11:13:10.513615 24200 mapping.cpp:74] 开始建图，请稍后...
+I0731 11:13:10.513855 24200 mapping.cpp:101] robotPose0.526013  0.00282978  0.00554065  1
+I0731 11:13:10.513875 24200 mapping.cpp:105] robotIndex.x = 511 robotIndex.y = 501
+I0731 11:13:11.514158 24200 mapping.cpp:74] 开始建图，请稍后...
+I0731 11:13:11.514415 24200 mapping.cpp:101] robotPose0.780142  0.00966293  0.00702884  2
+I0731 11:13:11.514443 24200 mapping.cpp:105] robotIndex.x = 516 robotIndex.y = 501
+I0731 11:13:12.515775 24200 mapping.cpp:74] 开始建图，请稍后...
+I0731 11:13:12.516026 24200 mapping.cpp:101] robotPose1.02693  0.0171603  0.0061693  3
+I0731 11:13:12.516052 24200 mapping.cpp:105] robotIndex.x = 521 robotIndex.y = 501
+I0731 11:13:15.114789 24200 mapping.cpp:74] 开始建图，请稍后...
+I0731 11:13:15.115115 24200 mapping.cpp:101] robotPose0.967422  0.238753  0.946603  4
+I0731 11:13:15.115150 24200 mapping.cpp:105] robotIndex.x = 520 robotIndex.y = 505
+I0731 11:13:16.520154 24200 mapping.cpp:74] 开始建图，请稍后...
+I0731 11:13:16.520364 24200 mapping.cpp:101] robotPose1.10266  0.392468  0.945551  5
+I0731 11:13:16.520385 24200 mapping.cpp:105] robotIndex.x = 523 robotIndex.y = 508
+I0731 11:13:17.297717 24200 mapping.cpp:74] 开始建图，请稍后...
+I0731 11:13:17.297984 24200 mapping.cpp:101] robotPose1.21237  0.561041  0.945598  6
+I0731 11:13:17.298004 24200 mapping.cpp:105] robotIndex.x = 525 robotIndex.y = 512
+I0731 11:13:18.116580 24200 mapping.cpp:74] 开始建图，请稍后...
+I0731 11:13:18.116811 24200 mapping.cpp:101] robotPose1.3233  0.729128  0.94334  7
+I0731 11:13:18.116832 24200 mapping.cpp:105] robotIndex.x = 527 robotIndex.y = 515
+I0731 11:13:18.894680 24200 mapping.cpp:74] 开始建图，请稍后...
+I0731 11:13:18.894876 24200 mapping.cpp:101] robotPose1.45382  0.885933  0.944735  8
+I0731 11:13:18.894893 24200 mapping.cpp:105] robotIndex.x = 530 robotIndex.y = 518

@@ -29,7 +29,7 @@ int main(int argc, char *argv[]) {
   std::string cloud_topic;
   nh.param<std::string>("cloud_topic", cloud_topic, "/pretreat_cloud");
 
-  std::shared_ptr<MappingFlow> _mapping_flow_ptr =
+  std::shared_ptr<MappingFlow> mapping_flow_ptr =
       std::make_shared<MappingFlow>(nh, cloud_topic);
 
   ros::ServiceServer service =
@@ -42,7 +42,7 @@ int main(int argc, char *argv[]) {
   while (ros::ok()) {
     ros::spinOnce();
 
-    _mapping_flow_ptr->Run();
+    mapping_flow_ptr->Run();
 
     if (_need_save_Gridmap) {
       _mapping_flow_ptr->SaveGridmap();

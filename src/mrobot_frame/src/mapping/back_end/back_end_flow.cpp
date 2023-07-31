@@ -39,7 +39,7 @@ bool BackEndFlow::Run() {
 
   return true;
 }
-
+//对所有关键帧统一做一次优化
 bool BackEndFlow::ForceOptimize() {
   back_end_ptr_->ForceOptimize();
   if (back_end_ptr_->HasNewOptimized()) {

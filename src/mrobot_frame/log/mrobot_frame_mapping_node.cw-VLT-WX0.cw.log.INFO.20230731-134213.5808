@@ -1,0 +1,49 @@
+Log file created at: 2023/07/31 13:42:13
+Running on machine: cw-VLT-WX0
+Log line format: [IWEF]mmdd hh:mm:ss.uuuuuu threadid file:line] msg
+I0731 13:42:13.803439  5808 mapping_node.cpp:40] [MAIN] mapping_node start!
+I0731 13:42:14.194211  5808 mapping.cpp:74] 开始建图，请稍后...
+I0731 13:42:14.194725  5808 mapping.cpp:100] robotPose0.275  0  0  0
+I0731 13:42:14.194751  5808 mapping.cpp:104] robotIndex.x = 506 robotIndex.y = 500
+I0731 13:42:19.806102  5808 mapping.cpp:74] 开始建图，请稍后...
+I0731 13:42:19.807327  5808 mapping.cpp:100] robotPose0.526013  0.00282973  0.00554069  1
+I0731 13:42:19.807487  5808 mapping.cpp:104] robotIndex.x = 511 robotIndex.y = 501
+I0731 13:42:20.806807  5808 mapping.cpp:74] 开始建图，请稍后...
+I0731 13:42:20.807034  5808 mapping.cpp:100] robotPose0.780142  0.00966298  0.00702889  2
+I0731 13:42:20.807050  5808 mapping.cpp:104] robotIndex.x = 516 robotIndex.y = 501
+I0731 13:42:21.805820  5808 mapping.cpp:74] 开始建图，请稍后...
+I0731 13:42:21.806123  5808 mapping.cpp:100] robotPose1.02693  0.0171603  0.0061693  3
+I0731 13:42:21.806159  5808 mapping.cpp:104] robotIndex.x = 521 robotIndex.y = 501
+I0731 13:42:24.412307  5808 mapping.cpp:74] 开始建图，请稍后...
+I0731 13:42:24.412580  5808 mapping.cpp:100] robotPose0.967422  0.238752  0.946603  4
+I0731 13:42:24.412598  5808 mapping.cpp:104] robotIndex.x = 520 robotIndex.y = 505
+I0731 13:42:25.806931  5808 mapping.cpp:74] 开始建图，请稍后...
+I0731 13:42:25.807368  5808 mapping.cpp:100] robotPose1.10266  0.392468  0.945551  5
+I0731 13:42:25.807402  5808 mapping.cpp:104] robotIndex.x = 523 robotIndex.y = 508
+I0731 13:42:26.605517  5808 mapping.cpp:74] 开始建图，请稍后...
+I0731 13:42:26.605780  5808 mapping.cpp:100] robotPose1.21237  0.561041  0.945598  6
+I0731 13:42:26.605800  5808 mapping.cpp:104] robotIndex.x = 525 robotIndex.y = 512
+I0731 13:42:27.374730  5808 mapping.cpp:74] 开始建图，请稍后...
+I0731 13:42:27.375015  5808 mapping.cpp:100] robotPose1.3233  0.729128  0.94334  7
+I0731 13:42:27.375034  5808 mapping.cpp:104] robotIndex.x = 527 robotIndex.y = 515
+I0731 13:42:28.193123  5808 mapping.cpp:74] 开始建图，请稍后...
+I0731 13:42:28.193535  5808 mapping.cpp:100] robotPose1.45382  0.885933  0.944735  8
+I0731 13:42:28.193571  5808 mapping.cpp:104] robotIndex.x = 530 robotIndex.y = 518
+I0731 13:42:28.991050  5808 mapping.cpp:74] 开始建图，请稍后...
+I0731 13:42:28.991251  5808 mapping.cpp:100] robotPose1.56229  1.05552  0.943109  9
+I0731 13:42:28.991266  5808 mapping.cpp:104] robotIndex.x = 532 robotIndex.y = 522
+I0731 13:42:29.807958  5808 mapping.cpp:74] 开始建图，请稍后...
+I0731 13:42:29.808264  5808 mapping.cpp:100] robotPose1.66579  1.20438  0.940127  10
+I0731 13:42:29.808287  5808 mapping.cpp:104] robotIndex.x = 534 robotIndex.y = 525
+I0731 13:42:30.586983  5808 mapping.cpp:74] 开始建图，请稍后...
+I0731 13:42:30.587608  5808 mapping.cpp:100] robotPose1.79959  1.36068  0.943252  11
+I0731 13:42:30.587703  5808 mapping.cpp:104] robotIndex.x = 536 robotIndex.y = 528
+I0731 13:42:31.429451  5808 mapping.cpp:74] 开始建图，请稍后...
+I0731 13:42:31.429708  5808 mapping.cpp:100] robotPose1.91061  1.52789  0.944385  12
+I0731 13:42:31.429728  5808 mapping.cpp:104] robotIndex.x = 539 robotIndex.y = 531
+I0731 13:42:32.178117  5808 mapping.cpp:74] 开始建图，请稍后...
+I0731 13:42:32.178401  5808 mapping.cpp:100] robotPose2.02407  1.69623  0.943  13
+I0731 13:42:32.178423  5808 mapping.cpp:104] robotIndex.x = 541 robotIndex.y = 534
+I0731 13:42:33.209375  5808 mapping.cpp:74] 开始建图，请稍后...
+I0731 13:42:33.209560  5808 mapping.cpp:100] robotPose2.08471  1.89193  1.1575  14
+I0731 13:42:33.209573  5808 mapping.cpp:104] robotIndex.x = 542 robotIndex.y = 538

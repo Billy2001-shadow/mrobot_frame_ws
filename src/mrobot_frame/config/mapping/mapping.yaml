@@ -5,8 +5,8 @@ gridmap_width: 1000
 gridmap_height: 1000
 gridmap_resolution: 0.05
 
-gridmap_log_free: -1
-gridmap_log_occ: 2
+gridmap_log_free: -2
+gridmap_log_occ: 5
 gridmap_log_max: 100.0
 gridmap_log_min: 0.0
 
