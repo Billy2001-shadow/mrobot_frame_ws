@@ -17,7 +17,7 @@ scan_filter: no_filter # 选择当前帧点云滤波方法，目前支持：voxe
 ## 匹配相关参数
 NDT:
     res : 1.0
-    step_size : 0.1
+    step_size : 0.08
     trans_eps : 0.001
     max_iter : 100
 ## 滤波相关参数
