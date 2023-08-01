@@ -276,7 +276,7 @@ nav_msgs::OccupancyGrid Mapping::GetCurrentMap() {
   // 0~100
   // int cnt0, cnt1, cnt2;
   // cnt0 = cnt1 = cnt2 = 100;
-  map_mutex_.lock();
+  // map_mutex_.lock();
   for (int i = 0; i < Gridmap.info.width * Gridmap.info.height; i++) {
     if (pMap[i] == 50) //？
     {
@@ -286,7 +286,7 @@ nav_msgs::OccupancyGrid Mapping::GetCurrentMap() {
           pMap[i]; // unsigned char *pMap; //指向unsigned char类型元素的指针
     }
   }
-  map_mutex_.unlock();
+  // map_mutex_.unlock();
   return Gridmap;
 }
 

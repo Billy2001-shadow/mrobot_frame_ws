@@ -15,7 +15,7 @@ public:
   void Publish(const nav_msgs::OccupancyGrid &rosMap);
 
   bool HasSubscribers();
-  std::mutex map_mutex_;
+  // std::mutex map_mutex_;
 
 private:
   ros::NodeHandle nh_;

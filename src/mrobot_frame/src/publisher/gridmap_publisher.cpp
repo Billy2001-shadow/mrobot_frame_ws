@@ -10,9 +10,9 @@ GridmapPublisher::GridmapPublisher(ros::NodeHandle &nh, std::string topic_name,
 
 void GridmapPublisher::Publish(const nav_msgs::OccupancyGrid &rosMap) {
   nav_msgs::OccupancyGrid Gridmap;
-  map_mutex_.lock();
+  // map_mutex_.lock();
   Gridmap = rosMap;
-  map_mutex_.unlock();
+  // map_mutex_.unlock();
   Gridmap.header.stamp = ros::Time::now();
   Gridmap.header.frame_id = frame_id_;
   // std::cout << "建图完毕..." << std::endl;

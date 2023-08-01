@@ -41,7 +41,7 @@ public:
   // void OccupanyMapping(CloudData &cloud_data, PoseData &robot_poses);
   // //外部调用需要
   void OccupanyMapping(KeyFrame &current_keyframe); //外部调用需要
-  std::mutex map_mutex_;
+  // std::mutex map_mutex_;
 
 private:
   //地图参数
