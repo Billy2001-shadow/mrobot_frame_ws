@@ -1,5 +1,6 @@
 #include "mrobot_frame/mapping/front_end/front_end.hpp"
 
+#include "Eigen/src/Geometry/Quaternion.h"
 #include "glog/logging.h"
 #include "mrobot_frame/global_defination/global_defination.h"
 #include <boost/filesystem.hpp>
@@ -31,7 +32,7 @@ bool FrontEnd::InitWithConfig() {
   InitRegistration(registration_ptr_, config_node);
   InitFilter("local_map", local_map_filter_ptr_, config_node);
   InitFilter("frame", frame_filter_ptr_, config_node);
-
+  SetInitPose(); //初始化激光雷达的位姿
   return true;
 }
 
@@ -39,6 +40,13 @@ bool FrontEnd::InitParam(const YAML::Node &config_node) {
   key_frame_distance_ = config_node["key_frame_distance"].as<float>();
   key_frame_angular_ = config_node["key_frame_angular"].as<float>();
   local_frame_num_ = config_node["local_frame_num"].as<int>();
+  pose_.position.x = config_node["pose"][0].as<float>();
+  pose_.position.y = config_node["pose"][1].as<float>();
+  pose_.position.z = config_node["pose"][2].as<float>();
+  pose_.orientation.x = config_node["pose"][3].as<float>();
+  pose_.orientation.y = config_node["pose"][4].as<float>();
+  pose_.orientation.z = config_node["pose"][5].as<float>();
+  pose_.orientation.w = config_node["pose"][6].as<float>();
 
   return true;
 }
@@ -166,8 +174,17 @@ float FrontEnd::Matrix4fToYaw(const Eigen::Matrix4f &MatrixPose) {
   return yaw;
 }
 
-bool FrontEnd::SetInitPose(const Eigen::Matrix4f &init_pose) {
-  init_pose_ = init_pose;
+bool FrontEnd::SetInitPose() {
+  //将pose_转为Matrix4f的形式
+  Eigen::Quaternionf rotation_q(
+      Eigen::Vector4f(pose_.orientation.x, pose_.orientation.y,
+                      pose_.orientation.z, pose_.orientation.w));
+  Eigen::Matrix3f rotation_R = rotation_q.toRotationMatrix();
+  init_pose_.block<3, 3>(0, 0) = rotation_R;
+  init_pose_(0, 3) = pose_.position.x;
+  init_pose_(1, 3) = pose_.position.y;
+  init_pose_(2, 3) = pose_.position.z;
+  std::cout << "init_pose = " << init_pose_ << std::endl;
   return true;
 }
 

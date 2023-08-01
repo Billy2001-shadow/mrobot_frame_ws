@@ -49,19 +49,7 @@ bool FrontEndFlow::ValidData() {
 
 */
 bool FrontEndFlow::UpdateLaserOdometry() {
-  static bool odometry_inited = false;
-
-  if (!odometry_inited) {
-    odometry_inited = true;
-    Eigen::Matrix4f odom_pose_init = Eigen::Matrix4f::Identity();
-    odom_pose_init(0, 3) = (float)0.275; // 2.0475000000000003
-    odom_pose_init(1, 3) = (float)0;     // 12.6242
-    odom_pose_init(2, 3) = (float)0.150;
-
-    front_end_ptr_->SetInitPose(odom_pose_init); //初始位姿
-    return front_end_ptr_->Update(current_cloud_data_, laser_odometry_);
-  }
-
+  //根据当前点云数据更新激光里程计计算得到的位姿
   return front_end_ptr_->Update(current_cloud_data_, laser_odometry_);
 }
 
