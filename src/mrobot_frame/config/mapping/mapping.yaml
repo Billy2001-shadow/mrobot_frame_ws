@@ -1,5 +1,8 @@
 data_path: ./   # 数据存放路径
 
+
+mapping_method: count_mapping   # 选择建图方法，目前支持：覆盖栅格建图(cover_grid)、计数建图(count_mapping)
+
 # 地图参数配置
 gridmap_width: 1000
 gridmap_height: 1000

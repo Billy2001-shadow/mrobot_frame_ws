@@ -1,0 +1,16 @@
+Log file created at: 2023/08/01 16:57:26
+Running on machine: cw-VLT-WX0
+Log line format: [IWEF]mmdd hh:mm:ss.uuuuuu threadid file:line] msg
+I0801 16:57:26.662138 12128 mapping_node.cpp:40] [MAIN] mapping_node start!
+I0801 16:57:27.071579 12128 mapping.cpp:75] 开始建图，请稍后...
+I0801 16:57:27.072088 12128 mapping.cpp:101] robotPose0.275  0  0  0
+I0801 16:57:27.072127 12128 mapping.cpp:106] robotIndex.x = 506 robotIndex.y = 500
+I0801 16:57:32.688498 12128 mapping.cpp:75] 开始建图，请稍后...
+I0801 16:57:32.688814 12128 mapping.cpp:101] robotPose0.526013  0.00282973  0.00554069  1
+I0801 16:57:32.688841 12128 mapping.cpp:106] robotIndex.x = 511 robotIndex.y = 501
+I0801 16:57:33.669461 12128 mapping.cpp:75] 开始建图，请稍后...
+I0801 16:57:33.669675 12128 mapping.cpp:101] robotPose0.780142  0.00966298  0.00702889  2
+I0801 16:57:33.669698 12128 mapping.cpp:106] robotIndex.x = 516 robotIndex.y = 501
+I0801 16:57:34.669549 12128 mapping.cpp:75] 开始建图，请稍后...
+I0801 16:57:34.669801 12128 mapping.cpp:101] robotPose1.02693  0.0171603  0.0061693  3
+I0801 16:57:34.669831 12128 mapping.cpp:106] robotIndex.x = 521 robotIndex.y = 501

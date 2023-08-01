@@ -45,6 +45,10 @@ bool Mapping::InitParam(const YAML::Node &config_node) {
   mapParams.offset_x = config_node["gridmap_offset_x"].as<int>(); // 500
   mapParams.offset_y = config_node["gridmap_offset_y"].as<int>(); // 500
 
+  //选择建图的方法
+  mapping_method_ = config_node["mapping_method"].as<std::string>();
+  std::cout << "建图选择方法为：" << mapping_method_ << std::endl;
+
   pMap = new unsigned char
       [mapParams.width *
        mapParams.height]; // pMap为指向数组首个元素的指针(后面主要维护pMap)
@@ -81,7 +85,7 @@ void Mapping::OccupanyMapping(KeyFrame &current_keyframe) {
       "/home/cw/Slam/mrobot_frame_ws/src/mrobot_frame/slam_data/key_frames";
   file_path = key_frames_path_ + "/key_frame_" +
               std::to_string(current_keyframe.index) + ".pcd";
-  std::cout << " path path path " << file_path << std::endl;
+
   pcl::io::loadPCDFile(file_path, *cloud_ptr); // cloud为点云指针
 
   //先获取机器人位姿
@@ -98,18 +102,16 @@ void Mapping::OccupanyMapping(KeyFrame &current_keyframe) {
 
   Eigen::Vector3f robotPose(robot_pose(0, 3), robot_pose(1, 3), eulerAngle(0));
 
-  LOG(INFO) << "robotPose" << robotPose(0) << "  " << robotPose(1) << "  "
-            << robotPose(2) << "  " << current_keyframe.index;
+  // LOG(INFO) << "robotPose" << robotPose(0) << "  " << robotPose(1) << "  "
+  //           << robotPose(2) << "  " << current_keyframe.index;
   //激光雷达的栅格地图坐标
   GridIndex robotIndex = ConvertWorld2GridIndex(robotPose(0), robotPose(1));
 
-  LOG(INFO) << "robotIndex.x = " << robotIndex.x
-            << " robotIndex.y = " << robotIndex.y;
+  // LOG(INFO) << "robotIndex.x = " << robotIndex.x
+  //           << " robotIndex.y = " << robotIndex.y;
   //每一个激光束
   for (int id = 0; id < (*cloud_ptr).size(); id++) {
-    // LOG(INFO) << "cloud_ptr.x = " << cloud_ptr->at(id).x
-    //           << "cloud_ptr.y = " << cloud_ptr->at(id).y
-    //           << "cloud_ptr.z = " << cloud_ptr->at(id).z;
+
     double theta = robotPose(2);
 
     double world_x = cos(theta) * cloud_ptr->at(id).x -
@@ -119,37 +121,55 @@ void Mapping::OccupanyMapping(KeyFrame &current_keyframe) {
                      cos(theta) * cloud_ptr->at(id).y + robotPose(1);
 
     GridIndex beamPointIndex = ConvertWorld2GridIndex(world_x, world_y);
-    // std::cout << "beamPointIndex.x=   " << beamPointIndex.x << "
-    // beamPointIndex.y=    " << beamPointIndex.y << std::endl;
     std::vector<GridIndex> beamTraceindexes = TraceLine(
         robotIndex.x, robotIndex.y, beamPointIndex.x, beamPointIndex.y);
 
-    //占据栅格地图算法
-    for (auto index : beamTraceindexes) {
-      if (isValidGridIndex(index)) {
-        int tmpLinearIndex =
-            GridIndexToLinearIndex(index); // tmpLinearIndex一直为1？
-        if (pMap[tmpLinearIndex] == 0)
-          continue;
-        pMap[tmpLinearIndex] += mapParams.log_free;
-        // std::cout << "tmpLinearIndex=  " << tmpLinearIndex << "
-        // pMap值(路经点)：  " << pMap[tmpLinearIndex] << std::endl;
-      } else {
-        // std::cerr << "index if invalid!!!" << std::endl;
-      }
-    } // for
+    if (mapping_method_ == "cover_grid") {
+      for (auto index : beamTraceindexes) {
+        if (isValidGridIndex(index)) {
+          int tmpLinearIndex =
+              GridIndexToLinearIndex(index); // tmpLinearIndex一直为1？
+          if (pMap[tmpLinearIndex] == 0)
+            continue;
+          pMap[tmpLinearIndex] += mapParams.log_free;
+        } else {
+          // std::cerr << "index if invalid!!!" << std::endl;
+        }
+      } // for
 
-    if (isValidGridIndex(beamPointIndex)) {
-      int tmpLinearIndex = GridIndexToLinearIndex(beamPointIndex);
-      pMap[tmpLinearIndex] += mapParams.log_occ;
-      if (pMap[tmpLinearIndex] >= 100)
-        pMap[tmpLinearIndex] = 100;
-    } else {
-      // std::cerr << "beamPointIndex if invalid!!!" << std::endl;
+      if (isValidGridIndex(beamPointIndex)) {
+        int tmpLinearIndex = GridIndexToLinearIndex(beamPointIndex);
+        pMap[tmpLinearIndex] += mapParams.log_occ;
+        if (pMap[tmpLinearIndex] >= 100)
+          pMap[tmpLinearIndex] = 100;
+      } else {
+        // std::cerr << "beamPointIndex if invalid!!!" << std::endl;
+      }
+    } // if
+
+    else if (mapping_method_ == "count_mapping") {
+      for (auto index : beamTraceindexes) {
+        if (isValidGridIndex(index)) {
+          int tmpLinearIndex = GridIndexToLinearIndex(index);
+          ++pMapMisses[tmpLinearIndex];
+        } else {
+          // std::cerr << "index if invalid!!!" << std::endl;
+        }
+      } // for
+      if (isValidGridIndex(beamPointIndex)) {
+        int tmpLinearIndex = GridIndexToLinearIndex(beamPointIndex);
+        ++pMapHits[tmpLinearIndex];
+      } else {
+        // std::cerr << "beamPointIndex if invalid!!!" << std::endl;
+      }
+
+    }
+
+    else {
+      ROS_ERROR("choose correct mapping method");
     }
 
   } //一束激光雷达数据中的数据点遍历
-    // double world_x = (*cloud_data.cloud_ptr).points
 }
 
 /**
@@ -277,15 +297,31 @@ nav_msgs::OccupancyGrid Mapping::GetCurrentMap() {
   // int cnt0, cnt1, cnt2;
   // cnt0 = cnt1 = cnt2 = 100;
   // map_mutex_.lock();
-  for (int i = 0; i < Gridmap.info.width * Gridmap.info.height; i++) {
-    if (pMap[i] == 50) //？
-    {
-      Gridmap.data[i] = -1.0; // Unknown is -1.
-    } else {
-      Gridmap.data[i] =
-          pMap[i]; // unsigned char *pMap; //指向unsigned char类型元素的指针
+  if (mapping_method_ == "cover_grid") {
+    for (int i = 0; i < Gridmap.info.width * Gridmap.info.height; i++) {
+      if (pMap[i] == 50) //？
+      {
+        Gridmap.data[i] = -1.0; // Unknown is -1.
+      } else {
+        Gridmap.data[i] =
+            pMap[i]; // unsigned char *pMap; //指向unsigned char类型元素的指针
+      }
     }
   }
+
+  else if (mapping_method_ == "count_mapping") {
+    for (int i = 0; i < Gridmap.info.width * Gridmap.info.height; i++) {
+      if ((pMapHits[i] + pMapMisses[i]) != 0) {
+        Gridmap.data[i] =
+            (double)pMapHits[i] / (pMapHits[i] + pMapMisses[i]) * 100;
+        if (Gridmap.data[i] >= 35)
+          Gridmap.data[i] = 100;
+      } else {
+        Gridmap.data[i] = -1;
+      }
+    }
+  }
+
   // map_mutex_.unlock();
   return Gridmap;
 }

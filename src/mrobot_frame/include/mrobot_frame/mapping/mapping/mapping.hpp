@@ -44,6 +44,8 @@ public:
   // std::mutex map_mutex_;
 
 private:
+  std::string mapping_method_ = "";
+
   //地图参数
   MapParams mapParams; //地图参数可以共用
   unsigned char *pMap; //指向unsigned char类型元素的指针
