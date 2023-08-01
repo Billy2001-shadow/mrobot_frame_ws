@@ -76,7 +76,7 @@ bool Mapping::InitParam(const YAML::Node &config_node) {
 
 void Mapping::OccupanyMapping(KeyFrame &current_keyframe) {
 
-  LOG(INFO) << "开始建图，请稍后...";
+  LOG(INFO) << "Update map";
   Eigen::Matrix4f robot_pose = current_keyframe.pose;
   CloudData::CLOUD_PTR cloud_ptr(new CloudData::CLOUD());
 

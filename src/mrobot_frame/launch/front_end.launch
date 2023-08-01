@@ -1,12 +1,21 @@
 <launch>
 
     <!-- bag的地址与名称 -->
-    <arg name="bag_filename" default="/home/cw/Slam/bag_flies/basic_localization_stage_indexed.bag"/>
+    <arg name="bag_filename" default="/home/cw/Slam/bag_flies/aces.bag"/>
+    <!-- <arg name="bag_filename" default="/home/cw/Slam/bag_flies/basic_localization_stage_indexed.bag"/> -->
     <!-- <arg name="bag_filename" default="/home/nuc/ROS1/bag_file/intel.bag"/> -->
 
     <!-- 使用bag的时间戳 -->
     <param name="use_sim_time" value="true" />
 
+    <!-- <param name="scan_topic" value="base_scan"/>
+    <param name="cloud_topic" value="pretreat_cloud"/>
+    <param name="laser_frame" value="base_laser"/>
+    <param name="odom_frame" value="odom"/> -->
+    <param name="scan_topic" value="scan"/>
+    <param name="cloud_topic" value="pretreat_cloud"/>
+    <param name="laser_frame" value="base_laser_link"/>
+    <param name="odom_frame" value="odom"/>
     <!-- base_link to front_laser_link -->
     <!-- <node pkg="tf2_ros" type="static_transform_publisher" name="link_broadcaster1" 
         args="0 0 0 0 0 0 footprint base_link" />

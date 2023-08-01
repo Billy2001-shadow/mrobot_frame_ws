@@ -99,7 +99,7 @@ Visualization Manager:
           Scale: 1
           Value: true
         Value: true
-      Enabled: false
+      Enabled: true
       Keep: 1000000
       Name: Odometry
       Position Tolerance: 0.10000000149011612
@@ -116,7 +116,7 @@ Visualization Manager:
         Value: Arrow
       Topic: /odom_pose
       Unreliable: false
-      Value: false
+      Value: true
     - Angle Tolerance: 0.10000000149011612
       Class: rviz/Odometry
       Covariance:
@@ -134,7 +134,7 @@ Visualization Manager:
           Scale: 1
           Value: true
         Value: true
-      Enabled: false
+      Enabled: true
       Keep: 1000000
       Name: Odometry
       Position Tolerance: 0.10000000149011612
@@ -151,7 +151,7 @@ Visualization Manager:
         Value: Arrow
       Topic: /laser_odom_pose
       Unreliable: false
-      Value: false
+      Value: true
     - Alpha: 1
       Buffer Length: 1
       Class: rviz/Path
@@ -251,7 +251,7 @@ Visualization Manager:
   Views:
     Current:
       Class: rviz/Orbit
-      Distance: 35.722434997558594
+      Distance: 25.051708221435547
       Enable Stereo Rendering:
         Stereo Eye Separation: 0.05999999865889549
         Stereo Focal Distance: 1
@@ -259,17 +259,17 @@ Visualization Manager:
         Value: false
       Field of View: 0.7853981852531433
       Focal Point:
-        X: -7.2544989585876465
-        Y: 1.8424439430236816
-        Z: 7.104803562164307
+        X: 3.5946199893951416
+        Y: -4.646402835845947
+        Z: 1.4183157682418823
       Focal Shape Fixed Size: true
       Focal Shape Size: 0.05000000074505806
       Invert Z Axis: false
       Name: Current View
       Near Clip Distance: 0.009999999776482582
-      Pitch: 1.5697963237762451
+      Pitch: 0.5247969627380371
       Target Frame: <Fixed Frame>
-      Yaw: 4.505398750305176
+      Yaw: 4.475398063659668
     Saved: ~
 Window Geometry:
   Displays:

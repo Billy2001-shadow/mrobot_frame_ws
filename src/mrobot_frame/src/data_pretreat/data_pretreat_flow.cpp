@@ -2,7 +2,7 @@
 #include <pcl/common/transforms.h>
 
 namespace mrobot_frame {
-DataPretreatFlow::DataPretreatFlow(ros::NodeHandle &nh,
+DataPretreatFlow::DataPretreatFlow(ros::NodeHandle &nh, std::string scan_topic,
                                    std::string cloud_topic) {
 
   // ACES.bag
@@ -34,16 +34,18 @@ DataPretreatFlow::DataPretreatFlow(ros::NodeHandle &nh,
   // cloud_pub_ptr_ = std::make_shared<CloudPublisher>(nh, cloud_topic,
   // "map",100); odom_pub_ptr_ = std::make_shared<OdometryPublisher>(nh,
   // "/odom_pose", "map", "/base_link", 100);
-
+  std::string laser_frame, odom_frame;
+  nh.param<std::string>("laser_frame", laser_frame, "laser_link");
+  nh.param<std::string>("odom_frame", odom_frame, "odom");
   // subscriber
-  cloud_sub_ptr_ = std::make_shared<CloudSubscriber>(nh, "/base_scan", 100000);
-  tf_pose_ptr_ = std::make_shared<TFListener>(nh, "/odom", "/base_laser");
+  cloud_sub_ptr_ = std::make_shared<CloudSubscriber>(nh, scan_topic, 100000);
+  tf_pose_ptr_ = std::make_shared<TFListener>(nh, odom_frame, laser_frame);
 
   // publisher
   cloud_pub_ptr_ =
-      std::make_shared<CloudPublisher>(nh, cloud_topic, "base_laser", 100);
-  odom_pub_ptr_ = std::make_shared<OdometryPublisher>(nh, "/odom_pose", "odom",
-                                                      "/base_laser", 100);
+      std::make_shared<CloudPublisher>(nh, cloud_topic, laser_frame, 100);
+  odom_pub_ptr_ = std::make_shared<OdometryPublisher>(
+      nh, "/odom_pose", odom_frame, laser_frame, 100);
 }
 
 bool DataPretreatFlow::Run() {

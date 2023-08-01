@@ -3,13 +3,17 @@
 
 namespace mrobot_frame {
 FrontEndFlow::FrontEndFlow(ros::NodeHandle &nh, std::string cloud_topic,
-                           std::string odom_topic) {
+                           std::string laser_odom_topic) {
+
+  std::string laser_frame, odom_frame;
+  nh.param<std::string>("laser_frame", laser_frame, "laser_link");
+  nh.param<std::string>("odom_frame", odom_frame, "odom");
   //订阅点云信息
   cloud_sub_ptr_ = std::make_shared<CloudSubscriber2>(
       nh, cloud_topic, 100000); //已经转换到odom坐标系下的点云数据
 
   laser_odom_pub_ptr_ = std::make_shared<OdometryPublisher>(
-      nh, odom_topic, "odom", "/base_laser", 100);
+      nh, laser_odom_topic, odom_frame, laser_frame, 100);
 
   front_end_ptr_ = std::make_shared<FrontEnd>();
 }

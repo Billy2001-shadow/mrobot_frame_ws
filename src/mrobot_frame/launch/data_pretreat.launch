@@ -8,6 +8,10 @@
     <!-- 使用bag的时间戳 -->
     <param name="use_sim_time" value="true" />
 
+    <param name="scan_topic" value="base_scan"/>
+    <param name="cloud_topic" value="pretreat_cloud"/>
+    <param name="laser_frame" value="base_laser"/>
+    <param name="odom_frame" value="odom"/>
     <!-- base_link to front_laser_link -->
     <!-- <node pkg="tf2_ros" type="static_transform_publisher" name="link_broadcaster1" 
         args="0 0 0 0 0 0 footprint base_link" />
@@ -15,10 +19,11 @@
         args="0 0 0.254 0 0 3.1415926 base_link front_laser_link" /> -->
 
     <!-- 启动节点 -->
-    <node name="mrobot_frame_data_pretreat_node" pkg="mrobot_frame" type="mrobot_frame_data_pretreat_node" output="screen" />
+    <node name="mrobot_frame_data_pretreat_node" pkg="mrobot_frame" type="mrobot_frame_data_pretreat_node" output="screen" clear_params="true">
+        
+    </node>
     
-    <!-- <param name="robot_description" command="/home/alpaca/m_robot_frame/src/mrobot_frame/urdf/test.xacro" /> -->
-    <!-- <param name="robot_description" textfile="/home/chenw/ROS1/m_robot_ws/src/m_robot_frame/urdf/test.xacro" /> -->
+   
     <!-- launch rviz -->
     <node name="rviz" pkg="rviz" type="rviz" required="false"
         args="-d $(find mrobot_frame)/rviz/data_pretreat.rviz" />

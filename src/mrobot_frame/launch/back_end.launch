@@ -9,10 +9,13 @@
     args="0 0 0 0 0 0 footprint base_link" />
     <node pkg="tf2_ros" type="static_transform_publisher" name="link_broadcaster2" 
         args="0 0 0.254 0 0 3.1415926 base_link front_laser_link" /> -->
-
+    
     <!-- 使用bag的时间戳 -->
     <param name="use_sim_time" value="true" />
-
+    <param name="scan_topic" value="base_scan"/>
+    <param name="cloud_topic" value="pretreat_cloud"/>
+    <param name="laser_frame" value="base_laser"/>
+    <param name="odom_frame" value="odom"/>
     <!-- 启动节点 -->
     <node name="mrobot_frame_data_pretreat_node" pkg="mrobot_frame" type="mrobot_frame_data_pretreat_node" output="screen" />
     <node name="mrobot_frame_front_end_node" pkg="mrobot_frame" type="mrobot_frame_front_end_node" output="screen" />

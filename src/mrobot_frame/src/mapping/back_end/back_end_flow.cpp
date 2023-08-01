@@ -1,23 +1,32 @@
 #include "mrobot_frame/mapping/back_end/back_end_flow.hpp"
 #include "glog/logging.h"
 #include "mrobot_frame/tools/file_manager.hpp"
+#include <string>
 
 namespace mrobot_frame {
 BackEndFlow::BackEndFlow(ros::NodeHandle &nh) {
-  cloud_sub_ptr_ =
-      std::make_shared<CloudSubscriber2>(nh, "/pretreat_cloud", 100000);
-  laser_odom_sub_ptr_ = std::make_shared<OdometrySubscriber>(
-      nh, "/laser_odom_pose",
-      100000); //激光里程计位姿(构建节点和相邻边 里程计坐标系下)
-  loop_pose_sub_ptr_ = std::make_shared<LoopPoseSubscriber>(
-      nh, "/loop_pose", 100000); //回环位姿(构建回环边  map坐标系下？)
+
+  std::string cloud_topic, laser_odom_topic, odom_frame;
+  nh.param<std::string>("cloud_topic", cloud_topic, "pretreat_cloud");
+  nh.param<std::string>("laser_odom_topic", laser_odom_topic,
+                        "laser_odom_pose");
+  nh.param<std::string>("odom_frame", odom_frame, "odom");
+  //订阅
+  cloud_sub_ptr_ = std::make_shared<CloudSubscriber2>(nh, cloud_topic, 100000);
+
+  laser_odom_sub_ptr_ =
+      std::make_shared<OdometrySubscriber>(nh, laser_odom_topic, 100000);
+
+  loop_pose_sub_ptr_ =
+      std::make_shared<LoopPoseSubscriber>(nh, "/loop_pose", 100000);
   //发布
   transformed_odom_pub_ptr_ = std::make_shared<OdometryPublisher>(
-      nh, "/transformed_odom", "odom", "/base_footprint", 100); //优化后的位姿？
+      nh, "/transformed_odom", odom_frame, "/base_footprint",
+      100); //优化后的位姿？
   key_frame_pub_ptr_ = std::make_shared<KeyFramePublisher>(
-      nh, "/key_frame", "odom", 100); //关键帧(最新的)
+      nh, "/key_frame", odom_frame, 100); //关键帧(最新的)
   key_frames_pub_ptr_ = std::make_shared<KeyFramesPublisher>(
-      nh, "/optimized_key_frames", "odom", 100); //历史关键帧
+      nh, "/optimized_key_frames", odom_frame, 100); //历史关键帧
 
   back_end_ptr_ = std::make_shared<BackEnd>();
 }
