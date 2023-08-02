@@ -175,7 +175,11 @@ roslaunch mrobot_frame mapping.launch
 
 - 更新readme
 
+- 添加3D激光雷达的选项
 
+#### TODO
+
+- 写一下关于2d和3d数据集切换的使用说明，完善一下代码
 
 ---
 
