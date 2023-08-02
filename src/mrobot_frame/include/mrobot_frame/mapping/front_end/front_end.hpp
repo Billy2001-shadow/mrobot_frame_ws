@@ -53,7 +53,6 @@ private:
   Eigen::Matrix4f init_pose_ = Eigen::Matrix4f::Identity();
 
   float key_frame_distance_ = 2.0;
-  float key_frame_angular_ = 0.17;
   int local_frame_num_ = 20;
 
   struct Point {

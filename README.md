@@ -179,3 +179,51 @@ roslaunch mrobot_frame mapping.launch
 
 ---
 
+
+
+
+
+添加3D激光雷达的选项
+
+
+
+```
+/kitti/oxts/gps/fix
+/kitti/oxts/gps/vel               
+/kitti/oxts/imu
+/kitti/velo/pointcloud
+/rosout
+/rosout_agg
+/tf
+/tf_static
+```
+
+
+
+### 适配不同消息格式的输入
+
+- sensor_msgs::PointCLoud2
+- sensor_msgs::Laserscan
+
+
+
+对于数据读入(激光雷达消息订阅)，输入的是sensor_msgs::PointCLoud2或者sensor_msgs::Laserscan的数据类型，输出的都是PCL格式的CloudData。
+
+定义一个基类：CloudSubscribeInterface,它执行的函数是
+
+
+
+
+
+3d需要生成占据栅格地图？
+
+
+
+点云输入也搞一个基类？
+
+多态：同一种算法，不同的实现算法
+
+
+
+暂时认为3d数据集(kitti)中的world为odom坐标系
+

@@ -1,0 +1,16 @@
+Log file created at: 2023/08/02 20:50:47
+Running on machine: cw-VLT-WX0
+Log line format: [IWEF]mmdd hh:mm:ss.uuuuuu threadid file:line] msg
+I0802 20:50:47.429394 109693 mapping_node.cpp:40] [MAIN] mapping_node start!
+I0802 20:50:47.846765 109693 mapping.cpp:79] Update map
+I0802 20:50:53.421844 109693 mapping.cpp:79] Update map
+I0802 20:50:54.423413 109693 mapping.cpp:79] Update map
+I0802 20:50:55.424366 109693 mapping.cpp:79] Update map
+I0802 20:50:58.041275 109693 mapping.cpp:79] Update map
+I0802 20:50:59.425232 109693 mapping.cpp:79] Update map
+I0802 20:51:00.244412 109693 mapping.cpp:79] Update map
+I0802 20:51:01.041805 109693 mapping.cpp:79] Update map
+I0802 20:51:01.849802 109693 mapping.cpp:79] Update map
+I0802 20:51:02.648627 109693 mapping.cpp:79] Update map
+I0802 20:51:03.466130 109693 mapping.cpp:79] Update map
+I0802 20:51:04.245848 109693 mapping.cpp:79] Update map

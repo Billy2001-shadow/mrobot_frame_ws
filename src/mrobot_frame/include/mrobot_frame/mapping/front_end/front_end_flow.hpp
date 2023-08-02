@@ -5,7 +5,7 @@
 
 #include "mrobot_frame/mapping/front_end/front_end.hpp"
 #include "mrobot_frame/publisher/odometry_publisher.hpp"
-#include "mrobot_frame/subscriber/cloud_subscriber2.hpp"
+#include "mrobot_frame/subscriber/cloud_subscriber.hpp"
 #include "mrobot_frame/subscriber/tf_listener.hpp"
 namespace mrobot_frame {
 class FrontEndFlow {
@@ -23,7 +23,7 @@ private:
   bool PublishData();
 
 private:
-  std::shared_ptr<CloudSubscriber2> cloud_sub_ptr_;
+  std::shared_ptr<CloudSubscriber> cloud_sub_ptr_;
   std::shared_ptr<OdometryPublisher> laser_odom_pub_ptr_;
   std::shared_ptr<FrontEnd> front_end_ptr_;
 

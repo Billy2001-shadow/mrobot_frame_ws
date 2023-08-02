@@ -5,6 +5,7 @@
 #include "mrobot_frame/publisher/odometry_publisher.hpp"
 #include "mrobot_frame/sensor_data/cloud_data.hpp"
 #include "mrobot_frame/subscriber/cloud_subscriber.hpp"
+#include "mrobot_frame/subscriber/cloud_subscriber2.hpp"
 #include "mrobot_frame/subscriber/tf_listener.hpp"
 
 #include <memory>
@@ -26,6 +27,7 @@ private:
 
 private:
   // subscriber
+  std::shared_ptr<CloudSubscriber2> cloud_sub_ptr_2;
   std::shared_ptr<CloudSubscriber> cloud_sub_ptr_;
   std::shared_ptr<TFListener> tf_pose_ptr_;
 

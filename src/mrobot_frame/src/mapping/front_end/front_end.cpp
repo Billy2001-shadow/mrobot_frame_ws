@@ -21,6 +21,7 @@ FrontEnd::FrontEnd() : local_map_ptr_(new CloudData::CLOUD()) {
 
 //初始化参数，匹配方法，滤波
 bool FrontEnd::InitWithConfig() {
+
   std::string config_file_path =
       WORK_SPACE_PATH + "/config/mapping/front_end.yaml";
   YAML::Node config_node = YAML::LoadFile(config_file_path);
@@ -38,7 +39,6 @@ bool FrontEnd::InitWithConfig() {
 
 bool FrontEnd::InitParam(const YAML::Node &config_node) {
   key_frame_distance_ = config_node["key_frame_distance"].as<float>();
-  key_frame_angular_ = config_node["key_frame_angular"].as<float>();
   local_frame_num_ = config_node["local_frame_num"].as<int>();
   pose_.position.x = config_node["pose"][0].as<float>();
   pose_.position.y = config_node["pose"][1].as<float>();
@@ -155,8 +155,6 @@ bool FrontEnd::Update(const CloudData &cloud_data,
           fabs(last_key_frame_pose(1, 3) - current_frame_.pose(1, 3)) +
           fabs(last_key_frame_pose(2, 3) - current_frame_.pose(2, 3)) >
       key_frame_distance_) {
-    // abs(Matrix4fToYaw(last_key_frame_pose)
-    // -Matrix4fToYaw(current_frame_.pose)) > key_frame_angular_
     UpdateWithNewFrame(current_frame_);
     last_key_frame_pose = current_frame_.pose;
   }

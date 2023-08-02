@@ -5,41 +5,15 @@ namespace mrobot_frame {
 DataPretreatFlow::DataPretreatFlow(ros::NodeHandle &nh, std::string scan_topic,
                                    std::string cloud_topic) {
 
-  // ACES.bag
-  // subscriber
-  // cloud_sub_ptr_ = std::make_shared<CloudSubscriber>(nh, "/scan", 100000);
-  // tf_pose_ptr_ = std::make_shared<TFListener>(nh, "/odom", "/base_link");
-
-  // // // publisher
-  // cloud_pub_ptr_ = std::make_shared<CloudPublisher>(nh, cloud_topic,
-  // "odom",100); odom_pub_ptr_ = std::make_shared<OdometryPublisher>(nh,
-  // "/odom_pose", "odom", "/base_link", 100);  //轮式里程计？
-
-  // basic_localization_stage_indexed.bag
-  // subscriber
-  // cloud_sub_ptr_ = std::make_shared<CloudSubscriber>(nh, "/base_scan",
-  // 100000); tf_pose_ptr_ = std::make_shared<TFListener>(nh, "/odom",
-  // "/base_link");
-
-  // // publisher
-  // cloud_pub_ptr_ = std::make_shared<CloudPublisher>(nh, cloud_topic,
-  // "map",100); odom_pub_ptr_ = std::make_shared<OdometryPublisher>(nh,
-  // "/odom_pose", "map", "/base_link", 100);
-
-  // // subscriber
-  // cloud_sub_ptr_ = std::make_shared<CloudSubscriber>(nh, "/scan", 100000);
-  // tf_pose_ptr_ = std::make_shared<TFListener>(nh, "/odom", "/base_link");
-
-  // // publisher
-  // cloud_pub_ptr_ = std::make_shared<CloudPublisher>(nh, cloud_topic,
-  // "map",100); odom_pub_ptr_ = std::make_shared<OdometryPublisher>(nh,
-  // "/odom_pose", "map", "/base_link", 100);
-  std::string laser_frame, odom_frame;
+  std::string laser_frame, odom_frame, lidarMsg_type;
   nh.param<std::string>("laser_frame", laser_frame, "laser_link");
   nh.param<std::string>("odom_frame", odom_frame, "odom");
-  // subscriber
-  cloud_sub_ptr_ = std::make_shared<CloudSubscriber>(nh, scan_topic, 100000);
+  //在数据预处理部分默认是2d即Laserscan
+  nh.param<std::string>("lidarMsg_type", lidarMsg_type, "Laserscan");
+  cloud_sub_ptr_ =
+      std::make_shared<CloudSubscriber>(nh, lidarMsg_type, scan_topic, 100000);
   tf_pose_ptr_ = std::make_shared<TFListener>(nh, odom_frame, laser_frame);
+  //后面这里可以加一个gnss的位姿展示(仅在3d下)
 
   // publisher
   cloud_pub_ptr_ =
