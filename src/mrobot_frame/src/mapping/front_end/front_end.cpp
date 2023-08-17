@@ -23,7 +23,7 @@ FrontEnd::FrontEnd() : local_map_ptr_(new CloudData::CLOUD()) {
 bool FrontEnd::InitWithConfig() {
 
   std::string config_file_path =
-      WORK_SPACE_PATH + "/config/mapping/front_end.yaml";
+      WORK_SPACE_PATH + "/config/mapping/front_end_2d.yaml";
   YAML::Node config_node = YAML::LoadFile(config_file_path);
   first_scan_ = true;
 

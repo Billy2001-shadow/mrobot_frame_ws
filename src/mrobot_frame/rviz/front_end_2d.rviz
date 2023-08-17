@@ -9,7 +9,6 @@ Panels:
         - /Odometry1
         - /Odometry1/Shape1
         - /Odometry2
-        - /Odometry2/Status1
         - /Odometry2/Shape1
         - /Odometry2/Covariance1
       Splitter Ratio: 0.5628742575645447
@@ -31,7 +30,7 @@ Panels:
   - Class: rviz/Time
     Name: Time
     SyncMode: 0
-    SyncSource: PointCloud2
+    SyncSource: ""
 Preferences:
   PromptSaveOnExit: true
 Toolbars:
@@ -183,7 +182,7 @@ Visualization Manager:
   Views:
     Current:
       Class: rviz/XYOrbit
-      Distance: 18.49191665649414
+      Distance: 24.51915740966797
       Enable Stereo Rendering:
         Stereo Eye Separation: 0.05999999865889549
         Stereo Focal Distance: 1
@@ -191,17 +190,17 @@ Visualization Manager:
         Value: false
       Field of View: 0.7853981852531433
       Focal Point:
-        X: -0.2378838062286377
-        Y: -2.7020034790039062
-        Z: -2.682209014892578e-07
+        X: 1.8871791362762451
+        Y: -2.8789892196655273
+        Z: -2.0563602447509766e-06
       Focal Shape Fixed Size: true
       Focal Shape Size: 0.05000000074505806
       Invert Z Axis: false
       Name: Current View
       Near Clip Distance: 0.009999999776482582
-      Pitch: 1.344796895980835
+      Pitch: 0.9247976541519165
       Target Frame: <Fixed Frame>
-      Yaw: 4.643186569213867
+      Yaw: 4.598184108734131
     Saved: ~
 Window Geometry:
   Displays:

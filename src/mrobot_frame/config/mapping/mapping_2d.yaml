@@ -1,0 +1,19 @@
+data_path: ./   # 数据存放路径
+
+
+mapping_method: count_mapping   # 选择建图方法，目前支持：覆盖栅格建图(cover_grid)、计数建图(count_mapping)
+
+# 地图参数配置
+gridmap_width: 1000
+gridmap_height: 1000
+gridmap_resolution: 0.05
+
+gridmap_log_free: -5
+gridmap_log_occ: 10
+gridmap_log_max: 100.0
+gridmap_log_min: 0.0
+
+gridmap_origin_x: -25
+gridmap_origin_y: -25
+gridmap_offset_x: 0
+gridmap_offset_y: 0

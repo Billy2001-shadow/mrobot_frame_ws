@@ -1,5 +1,7 @@
 #激光雷达在里程计坐标系下的起始位姿
-pose: [0.275,0.0,0.150,0.0,0.0,0.0,1.0] #basic_localization_stage_indexed.bag
+pose: [0.0,0.0,0.0,0.0,0.0,0.0,1.0]  #intel.bag
+#pose: [2.048,12.624,0.254,-0.258,0.966,0.0,-0.0] #lesson5.bag
+#pose: [0.275,0.0,0.150,0.0,0.0,0.0,1.0] #basic_localization_stage_indexed.bag
 #pose: [-0.001,0.013,0.0,0.0,0.0,-0.707,0.707]  #aces.bag
 
 # 匹配

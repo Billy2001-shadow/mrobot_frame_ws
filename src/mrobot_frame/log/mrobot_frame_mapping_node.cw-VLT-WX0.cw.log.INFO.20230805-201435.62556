@@ -1,0 +1,4 @@
+Log file created at: 2023/08/05 20:14:35
+Running on machine: cw-VLT-WX0
+Log line format: [IWEF]mmdd hh:mm:ss.uuuuuu threadid file:line] msg
+I0805 20:14:35.687305 62556 mapping_node.cpp:40] [MAIN] mapping_node start!

@@ -21,6 +21,7 @@ FrontEndFlow::FrontEndFlow(ros::NodeHandle &nh, std::string cloud_topic,
 }
 
 bool FrontEndFlow::Run() {
+
   if (!ReadData())
     return false;
 
